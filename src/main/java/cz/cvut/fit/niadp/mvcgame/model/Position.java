@@ -28,5 +28,9 @@ public class Position {
 		this.dimX = x;
 	}
 
+	public void add(Vector vector) {
+		this.setX(this.getX() + vector.getX());
+		this.setY(this.getY() + vector.getY());
+	}
 
 }

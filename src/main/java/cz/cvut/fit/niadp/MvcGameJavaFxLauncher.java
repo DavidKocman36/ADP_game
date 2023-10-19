@@ -23,7 +23,6 @@ public class MvcGameJavaFxLauncher extends Application {
 
     @Override
     public void start(Stage stage) {
-        // HELLOOOOO
         String winTitle = theMvcGame.getWindowTitle();
         int winWidth = theMvcGame.getWindowWidth();
         int winHeigth = theMvcGame.getWindowHeight();
@@ -50,16 +49,14 @@ public class MvcGameJavaFxLauncher extends Application {
                 }
         );
         // the game-loop
+        theMvcGame.setGraphicsContext(gc);
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
-                // Clear the canvas
-                gc.clearRect(0, 0, winWidth, winHeigth);
                 theMvcGame.processPressedKeys(pressedKeysCodes);
-                theMvcGame.update();
-                theMvcGame.render(gc);
             }
         }.start();
         stage.show();
+
     }
 
     public static void main(String[] args) {
