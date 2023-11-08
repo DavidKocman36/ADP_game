@@ -9,6 +9,7 @@ import cz.cvut.fit.niadp.mvcgame.model.gameobjects.GameObject;
 import cz.cvut.fit.niadp.mvcgame.observer.IObservable;
 import cz.cvut.fit.niadp.mvcgame.observer.IObserver;
 import cz.cvut.fit.niadp.mvcgame.observer.aspects.Aspect;
+import cz.cvut.fit.niadp.mvcgame.visitor.sounds.Sounds;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -18,11 +19,13 @@ public class GameModel implements IObservable {
     private final AbsCannon cannon;
     private final List<AbsMissile> missiles;
     private final Map<Aspect, Set<IObserver>> observers;
+    private final Sounds sounds;
     public GameModel() {
         this.observers = new EnumMap<>(Aspect.class);
         gameObjectFactory = GameObjectFactory.getInstance(this);
         cannon = gameObjectFactory.createCannon();
         this.missiles = new ArrayList<>();
+        this.sounds = new Sounds();
 
         Arrays.stream(Aspect.values()).forEach(value ->
                 observers.put(value, new HashSet<>())
@@ -63,6 +66,10 @@ public class GameModel implements IObservable {
     public void cannonShoot() {
         this.missiles.add(this.cannon.shoot());
         this.notifyObservers(Aspect.PositionChangedAspect);
+
+        //Playing the sounds
+        this.sounds.visitCannon(this.cannon);
+        this.sounds.visitMissile(this.missiles.get(this.missiles.size() - 1));
     }
 
 

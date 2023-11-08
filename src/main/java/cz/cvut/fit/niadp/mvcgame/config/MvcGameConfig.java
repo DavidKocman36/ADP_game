@@ -20,6 +20,8 @@ public class MvcGameConfig {
 
     public static final String CANNON_IMAGE_RESOURCE = "images/cannon.png";
     public static final String MISSILE_IMAGE_RESOURCE = "images/missile.png";
+    public static final String BOOM_SOUND_RESOURCE = "/sounds/boom.mp3";
+    public static final String MISSILE_SOUND_RESOURCE = "/sounds/missile.mp3";
 
 
 }

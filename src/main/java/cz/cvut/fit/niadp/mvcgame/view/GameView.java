@@ -8,6 +8,7 @@ import cz.cvut.fit.niadp.mvcgame.view.renderer.AbstractGraphicsRenderer;
 import cz.cvut.fit.niadp.mvcgame.view.renderer.GraphicsRenderer;
 import cz.cvut.fit.niadp.mvcgame.view.renderer.NullGraphicsRenderer;
 import cz.cvut.fit.niadp.mvcgame.visitor.objectsrenderer.GameObjectsRenderer;
+import cz.cvut.fit.niadp.mvcgame.visitor.sounds.Sounds;
 import javafx.scene.canvas.GraphicsContext;
 
 public class GameView implements IObserver {
@@ -16,6 +17,7 @@ public class GameView implements IObserver {
     private final GameController controller;
     private GraphicsContext gr;
     private final GameObjectsRenderer gameObjectsRenderer;
+
 
     private AbstractGraphicsRenderer graphicsRenderer;
     private final GraphicsRenderer graphr;

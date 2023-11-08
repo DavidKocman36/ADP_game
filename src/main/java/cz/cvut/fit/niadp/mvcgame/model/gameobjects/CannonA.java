@@ -5,6 +5,7 @@ import cz.cvut.fit.niadp.mvcgame.config.MvcGameConfig;
 import cz.cvut.fit.niadp.mvcgame.model.Position;
 import cz.cvut.fit.niadp.mvcgame.model.Vector;
 import cz.cvut.fit.niadp.mvcgame.visitor.objectsrenderer.IGameObjectsVisitor;
+import cz.cvut.fit.niadp.mvcgame.visitor.sounds.ISoundsVisitor;
 
 public class CannonA extends AbsCannon {
 
@@ -36,6 +37,11 @@ public class CannonA extends AbsCannon {
 
     @Override
     public void acceptVisitor(IGameObjectsVisitor visitor) {
+        visitor.visitCannon(this);
+    }
+
+    @Override
+    public void acceptVisitor(ISoundsVisitor visitor) {
         visitor.visitCannon(this);
     }
 }
