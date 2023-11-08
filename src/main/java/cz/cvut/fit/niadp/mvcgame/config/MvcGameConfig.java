@@ -4,9 +4,6 @@ import java.awt.*;
 
 public class MvcGameConfig {
 
-    private MvcGameConfig(){
-
-    }
     private static final Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
     public static final int MAX_X = (int)size.getWidth();
     public static final int MAX_Y = (int)size.getHeight();
@@ -19,8 +16,10 @@ public class MvcGameConfig {
     public static final String UP_KEY = "UP";
     public static final String DOWN_KEY = "DOWN";
     public static final String EXIT_KEY = "ESCAPE";
+    public static final String SHOOT_KEY = "SPACE";
 
     public static final String CANNON_IMAGE_RESOURCE = "images/cannon.png";
+    public static final String MISSILE_IMAGE_RESOURCE = "images/missile.png";
 
 
 }

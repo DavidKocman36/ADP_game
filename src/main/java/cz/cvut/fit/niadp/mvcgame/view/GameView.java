@@ -1,25 +1,23 @@
 package cz.cvut.fit.niadp.mvcgame.view;
 
-import cz.cvut.fit.niadp.mvcgame.config.MvcGameConfig;
 import cz.cvut.fit.niadp.mvcgame.controller.GameController;
 import cz.cvut.fit.niadp.mvcgame.model.GameModel;
-import cz.cvut.fit.niadp.mvcgame.model.Position;
 import cz.cvut.fit.niadp.mvcgame.observer.IObserver;
 import cz.cvut.fit.niadp.mvcgame.observer.aspects.Aspect;
-import cz.cvut.fit.niadp.mvcgame.view.renderer.AbstractRenderer;
+import cz.cvut.fit.niadp.mvcgame.view.renderer.AbstractGraphicsRenderer;
 import cz.cvut.fit.niadp.mvcgame.view.renderer.GraphicsRenderer;
 import cz.cvut.fit.niadp.mvcgame.view.renderer.NullGraphicsRenderer;
+import cz.cvut.fit.niadp.mvcgame.visitor.objectsrenderer.GameObjectsRenderer;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 
 public class GameView implements IObserver {
 
     private final GameModel model;
     private final GameController controller;
     private GraphicsContext gr;
+    private final GameObjectsRenderer gameObjectsRenderer;
 
-    private AbstractRenderer renderer;
-
+    private AbstractGraphicsRenderer graphicsRenderer;
     private final GraphicsRenderer graphr;
     private final NullGraphicsRenderer n_graphr;
 
@@ -27,6 +25,7 @@ public class GameView implements IObserver {
         this.model = model;
         this.controller = new GameController(this.model);
         this.model.registerObserver(this, Aspect.PositionChangedAspect);
+        this.gameObjectsRenderer = new GameObjectsRenderer();
 
         // create the classes beforehand so they will not be created multiple times
         // in case the context changes
@@ -34,7 +33,7 @@ public class GameView implements IObserver {
         this.graphr = new GraphicsRenderer();
 
         // set the abstract renderer based on the gr value
-        this.renderer = this.setRenderer();
+        this.graphicsRenderer = this.setRenderer();
 
     }
 
@@ -45,26 +44,22 @@ public class GameView implements IObserver {
     /*
     * This method returns a null object if the GraphicsContext is null.
     */
-    public AbstractRenderer setRenderer(){
+    public AbstractGraphicsRenderer setRenderer(){
         if(this.gr == null){
             return this.n_graphr;
         }
         return this.graphr;
     }
 
-    public void drawCannon() {
-        Position cannonPosition = this.model.getCannonPos();
-        this.gr.drawImage(new Image(MvcGameConfig.CANNON_IMAGE_RESOURCE), cannonPosition.getX(), cannonPosition.getY());
-    }
-
     public void setGraphicsContext(GraphicsContext gr) {
         this.gr = gr;
-        renderer = this.setRenderer();
-        renderer.render(gr, this);
+        graphicsRenderer = this.setRenderer();
+        gameObjectsRenderer.setGraphicsContext(gr);
+        graphicsRenderer.render(gr, model, gameObjectsRenderer);
     }
 
     @Override
     public void update() {
-        renderer.render(gr, this);
+        graphicsRenderer.render(gr, model, gameObjectsRenderer);
     }
 }

@@ -14,21 +14,21 @@ public class GameController {
 
     public void processPressedKeys(List<String> pressedKeysCodes) {
         for(String code : pressedKeysCodes) {
-            switch(code) {
-                case MvcGameConfig.UP_KEY:
-                    this.model.moveCannonUp();
-                    break;
-                case MvcGameConfig.DOWN_KEY:
-                    this.model.moveCannonDown();
-                    break;
-                case MvcGameConfig.EXIT_KEY:
-                    System.exit(0);
-                    break;
-
-                default:
-                    //nothing
+            switch (code) {
+                case MvcGameConfig.UP_KEY -> this.model.moveCannonUp();
+                case MvcGameConfig.DOWN_KEY -> this.model.moveCannonDown();
+                case MvcGameConfig.SHOOT_KEY -> {
+                    this.model.cannonShoot();
+                    pressedKeysCodes.clear();
+                }
+                case MvcGameConfig.EXIT_KEY -> System.exit(0);
+                default -> {
+                }
+                //nothing
             }
+
         }
+        this.model.update();
     }
 }
 
