@@ -68,8 +68,8 @@ public class GameModel implements IObservable {
         this.notifyObservers(Aspect.PositionChangedAspect);
 
         //Playing the sounds
-        this.sounds.visitCannon(this.cannon);
-        this.sounds.visitMissile(this.missiles.get(this.missiles.size() - 1));
+        this.cannon.acceptVisitor(sounds);
+        this.missiles.get(this.missiles.size() - 1).acceptVisitor(sounds);
     }
 
 
