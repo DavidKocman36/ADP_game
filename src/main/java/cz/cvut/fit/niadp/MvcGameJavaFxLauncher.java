@@ -1,5 +1,7 @@
 package cz.cvut.fit.niadp;
 
+import cz.cvut.fit.niadp.design.GameDesign;
+import cz.cvut.fit.niadp.design.MainMenuDesign;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -7,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 
 import cz.cvut.fit.niadp.mvcgame.MvcGame;
@@ -22,32 +23,23 @@ public class MvcGameJavaFxLauncher extends Application {
     }
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws InterruptedException {
         String winTitle = theMvcGame.getWindowTitle();
         int winWidth = theMvcGame.getWindowWidth();
-        int winHeigth = theMvcGame.getWindowHeight();
-        stage.setTitle( winTitle );
-        Group root = new Group();
-        Scene theScene = new Scene( root );
-        stage.setScene( theScene );
-        Canvas canvas = new Canvas( winWidth, winHeigth );
-        root.getChildren().add( canvas );
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        int winHeight = theMvcGame.getWindowHeight();
         ArrayList<String> pressedKeysCodes = new ArrayList<>();
-        theScene.setOnKeyPressed(
-                e -> {
-                    String code = e.getCode().toString();
-                    // only add once... prevent duplicates
-                    if (!pressedKeysCodes.contains(code))
-                        pressedKeysCodes.add(code);
-                }
-        );
-        theScene.setOnKeyReleased(
-                e -> {
-                    String code = e.getCode().toString();
-                    pressedKeysCodes.remove( code );
-                }
-        );
+        stage.setTitle( winTitle );
+
+        Group root = new Group();
+        Scene gameScene = GameDesign.createGameView(root, pressedKeysCodes, theMvcGame);
+
+        Scene mainMenuScene = MainMenuDesign.createMainMenu(stage, gameScene, winWidth, winHeight);
+        stage.setScene( mainMenuScene );
+
+        Canvas canvas = new Canvas( winWidth, winHeight );
+        root.getChildren().add(canvas);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
         // the game-loop
         theMvcGame.setGraphicsContext(gc);
         new AnimationTimer() {

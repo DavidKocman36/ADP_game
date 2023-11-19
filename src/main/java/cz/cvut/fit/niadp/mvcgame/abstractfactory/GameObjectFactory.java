@@ -26,11 +26,22 @@ public class GameObjectFactory implements IGameObjectFactory {
 
     @Override
     public AbsCannon createCannon() {
-        return new CannonA(new Position(MvcGameConfig.CANNON_POS_X, MvcGameConfig.CANNON_POS_Y), this);
+        return new CannonA(
+                new Position(MvcGameConfig.CANNON_POS_X, MvcGameConfig.CANNON_POS_Y),
+                this,
+                this.model.getSounds()
+        );
     }
 
     @Override
-    public AbsMissile createMissile() {
-        return new MissileA(new Position(this.model.getCannonPos().getX(), this.model.getCannonPos().getY()));
+    public MissileA createMissile(double initAngle, int initVelocity) {
+        return new MissileA(
+                new Position(this.model.getCannonPos().getX(), this.model.getCannonPos().getY()),
+                initAngle,
+                initVelocity,
+                this.model.getMovingStrategy(),
+                this.model.getSounds()
+        );
+
     }
 }

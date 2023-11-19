@@ -9,12 +9,12 @@ public class Enemy extends GameObject{
     }
 
     @Override
-    public void acceptVisitor(IGameObjectsVisitor visitor) {
+    public void acceptObjectVisitor(IGameObjectsVisitor visitor) {
         //nothing yet
     }
 
     @Override
-    public void acceptVisitor(ISoundsVisitor visitor) {
+    public void acceptSoundsVisitor(ISoundsVisitor visitor) {
 
     }
 }

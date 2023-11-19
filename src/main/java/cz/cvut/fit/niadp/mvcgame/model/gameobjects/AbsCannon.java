@@ -1,9 +1,31 @@
 package cz.cvut.fit.niadp.mvcgame.model.gameobjects;
 
+import cz.cvut.fit.niadp.mvcgame.state.DoubleShootingMode;
+import cz.cvut.fit.niadp.mvcgame.state.IShootingMode;
+import cz.cvut.fit.niadp.mvcgame.state.SingleShootingMode;
+
+import java.util.List;
+
 public abstract class AbsCannon extends GameObject{
+    protected IShootingMode shootingMode;
+
+    protected int power;
+    protected double angle;
+    protected int numberOfMissiles;
+    public abstract void primitiveShoot();
+    public abstract List<AbsMissile> shoot();
     public abstract void moveUp();
     public abstract void moveDown();
-    public abstract AbsMissile shoot();
+    public abstract void aimUp();
+    public abstract void aimDown();
+    public abstract void powerUp();
+    public abstract void powerDown();
+    public abstract double getAngle();
+    public abstract void setAngle(double angle);
+    public abstract int getNumberOfMissiles();
+    public abstract void addMissile();
+    public abstract void subMissile();
+    public abstract void toggleShootingMode();
 
 
 }

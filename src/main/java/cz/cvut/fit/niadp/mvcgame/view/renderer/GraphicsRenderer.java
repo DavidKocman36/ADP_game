@@ -11,7 +11,6 @@ public class GraphicsRenderer extends AbstractGraphicsRenderer {
     @Override
     public void render(GraphicsContext gr, GameModel model, GameObjectsRenderer gameObjectsRenderer) {
         gr.clearRect(0, 0, MvcGameConfig.MAX_X, MvcGameConfig.MAX_Y);
-        model.getGameObjects().forEach(gameObject -> gameObject.acceptVisitor(gameObjectsRenderer));
-        //model.moveMissiles();
+        model.getGameObjects().forEach(gameObject -> gameObject.acceptObjectVisitor(gameObjectsRenderer));
     }
 }
