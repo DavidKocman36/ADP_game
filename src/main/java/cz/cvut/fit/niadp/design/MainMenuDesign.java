@@ -1,6 +1,8 @@
 package cz.cvut.fit.niadp.design;
 
-import cz.cvut.fit.niadp.mvcgame.config.MvcGameConfig;
+import cz.cvut.fit.niadp.design.components.ButtonBuilder;
+import cz.cvut.fit.niadp.design.components.LabelBuilder;
+import cz.cvut.fit.niadp.config.MvcGameConfig;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,7 +21,10 @@ import javafx.stage.Stage;
 public class MainMenuDesign {
 
     public static Scene createMainMenu(Stage stage, Scene theScene, int winWidth, int winHeight){
+        ButtonBuilder bBuilder = new ButtonBuilder();
+        LabelBuilder lBuilder = new LabelBuilder();
         VBox menuLayout = new VBox(10);
+
         menuLayout.setBackground(new Background(
                 new BackgroundFill(
                         new ImagePattern(
@@ -37,14 +42,29 @@ public class MainMenuDesign {
                 )
         ));
 
-        Label menuName = new Label("The Furious Fowls");
-        menuName.setFont(Font.font("Lucida Console", FontWeight.BOLD,35));
+        Label menuName = lBuilder.setText("The Furious Fowls")
+                .setFont(Font.font("Lucida Console", FontWeight.BOLD,35))
+                .build();
 
-        Button buttonPlay  = ButtonDesign.createButton("Play");
-        buttonPlay.setOnAction(e -> stage.setScene(theScene));
+        Button buttonPlay = bBuilder.setText("Play")
+                .setMaxHeight(MvcGameConfig.MAX_BUTTON_HEIGHT)
+                .setMaxWidth(MvcGameConfig.MAX_BUTTON_WIDTH)
+                .setMinHeight(MvcGameConfig.MIN_BUTTON_HEIGHT)
+                .setBackground(MvcGameConfig.IDLE_BUTTON_BACKGROUND)
+                .setFont(16)
+                .setAction(e -> stage.setScene(theScene))
+                .build();
+        buttonPlay = bBuilder.setMouseEntered(buttonPlay);
 
-        Button buttonExit  = ButtonDesign.createButton("Exit");
-        buttonExit.setOnAction(e -> System.exit(0));
+        Button buttonExit = bBuilder.setText("Exit")
+                .setMaxHeight(MvcGameConfig.MAX_BUTTON_HEIGHT)
+                .setMaxWidth(MvcGameConfig.MAX_BUTTON_WIDTH)
+                .setMinHeight(MvcGameConfig.MIN_BUTTON_HEIGHT)
+                .setBackground(MvcGameConfig.IDLE_BUTTON_BACKGROUND)
+                .setFont(16)
+                .setAction(e -> System.exit(0))
+                .build();
+        buttonExit = bBuilder.setMouseEntered(buttonExit);
 
         menuLayout.getChildren().addAll(menuName, buttonPlay, buttonExit);
         menuLayout.setAlignment(Pos.CENTER);

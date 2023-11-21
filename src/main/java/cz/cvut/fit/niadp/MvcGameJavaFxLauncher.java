@@ -39,16 +39,15 @@ public class MvcGameJavaFxLauncher extends Application {
         Canvas canvas = new Canvas( winWidth, winHeight );
         root.getChildren().add(canvas);
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        theMvcGame.setGraphicsContext(gc);
 
         // the game-loop
-        theMvcGame.setGraphicsContext(gc);
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
                 theMvcGame.processPressedKeys(pressedKeysCodes);
             }
         }.start();
         stage.show();
-
     }
 
     public static void main(String[] args) {

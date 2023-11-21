@@ -1,16 +1,12 @@
 package cz.cvut.fit.niadp.mvcgame.model.gameobjects;
 
 import cz.cvut.fit.niadp.mvcgame.abstractfactory.IGameObjectFactory;
-import cz.cvut.fit.niadp.mvcgame.config.MvcGameConfig;
+import cz.cvut.fit.niadp.config.MvcGameConfig;
 import cz.cvut.fit.niadp.mvcgame.iterator.IIterator;
-import cz.cvut.fit.niadp.mvcgame.iterator.repos.MovingStrategyIteratorRepository;
 import cz.cvut.fit.niadp.mvcgame.iterator.repos.ShootingModeIteratorRepository;
 import cz.cvut.fit.niadp.mvcgame.model.Position;
 import cz.cvut.fit.niadp.mvcgame.model.Vector;
-import cz.cvut.fit.niadp.mvcgame.state.DoubleShootingMode;
 import cz.cvut.fit.niadp.mvcgame.state.IShootingMode;
-import cz.cvut.fit.niadp.mvcgame.state.SingleShootingMode;
-import cz.cvut.fit.niadp.mvcgame.strategy.IMovingStrategy;
 import cz.cvut.fit.niadp.mvcgame.visitor.objectsrenderer.IGameObjectsVisitor;
 import cz.cvut.fit.niadp.mvcgame.visitor.sounds.ISoundsVisitor;
 import cz.cvut.fit.niadp.mvcgame.visitor.sounds.Sounds;

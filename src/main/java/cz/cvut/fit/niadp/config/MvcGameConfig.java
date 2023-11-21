@@ -1,7 +1,12 @@
-package cz.cvut.fit.niadp.mvcgame.config;
+package cz.cvut.fit.niadp.config;
 
+import javafx.geometry.Insets;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
 
 import java.awt.*;
 
@@ -43,13 +48,29 @@ public class MvcGameConfig {
     public static final String MISSILE_IMAGE_RESOURCE = "images/missile.png";
     public static final String BOOM_SOUND_RESOURCE = "/sounds/boom.mp3";
     public static final String MISSILE_SOUND_RESOURCE = "/sounds/missile.mp3";
-
     public static final Image BACKGROUND_IMAGE = new Image("images/back.jpg");
+
+    public static final int MAX_BUTTON_WIDTH = 150;
+    public static final int MAX_BUTTON_HEIGHT = 50;
+    public static final int MIN_BUTTON_HEIGHT = 30;
+    public static final Background IDLE_BUTTON_BACKGROUND = new Background(
+            new BackgroundFill(
+                    javafx.scene.paint.Color.rgb(100, 100, 100, 0.4),
+                    CornerRadii.EMPTY,
+                    javafx.geometry.Insets.EMPTY
+            )
+    );
+    public static final Background ACTIVE_BUTTON_BACKGROUND = new Background(
+            new BackgroundFill(
+                    Color.rgb(50, 50, 50, 0.4),
+                    CornerRadii.EMPTY,
+                    Insets.EMPTY
+            )
+    );
 
     public static final AudioClip MISSILE_SOUND = new AudioClip(
             MvcGameConfig.class.getResource(MvcGameConfig.MISSILE_SOUND_RESOURCE).toExternalForm()
     );
-
     public static final AudioClip CANNON_SOUND = new AudioClip(
             MvcGameConfig.class.getResource(MvcGameConfig.BOOM_SOUND_RESOURCE).toExternalForm()
     );

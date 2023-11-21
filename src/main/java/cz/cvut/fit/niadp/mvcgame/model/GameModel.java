@@ -2,7 +2,7 @@ package cz.cvut.fit.niadp.mvcgame.model;
 
 import cz.cvut.fit.niadp.mvcgame.abstractfactory.GameObjectFactory;
 import cz.cvut.fit.niadp.mvcgame.abstractfactory.IGameObjectFactory;
-import cz.cvut.fit.niadp.mvcgame.config.MvcGameConfig;
+import cz.cvut.fit.niadp.config.MvcGameConfig;
 import cz.cvut.fit.niadp.mvcgame.iterator.IIterator;
 import cz.cvut.fit.niadp.mvcgame.iterator.repos.MovingStrategyIteratorRepository;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;

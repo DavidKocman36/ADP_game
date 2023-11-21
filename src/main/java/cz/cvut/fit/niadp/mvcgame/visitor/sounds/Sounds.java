@@ -1,6 +1,6 @@
 package cz.cvut.fit.niadp.mvcgame.visitor.sounds;
 
-import cz.cvut.fit.niadp.mvcgame.config.MvcGameConfig;
+import cz.cvut.fit.niadp.config.MvcGameConfig;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsMissile;
 import javafx.scene.media.AudioClip;

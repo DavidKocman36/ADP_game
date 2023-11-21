@@ -1,6 +1,6 @@
 package cz.cvut.fit.niadp.mvcgame.controller;
 
-import cz.cvut.fit.niadp.mvcgame.config.MvcGameConfig;
+import cz.cvut.fit.niadp.config.MvcGameConfig;
 import cz.cvut.fit.niadp.mvcgame.memento.CareTaker;
 import cz.cvut.fit.niadp.mvcgame.model.GameModel;
 

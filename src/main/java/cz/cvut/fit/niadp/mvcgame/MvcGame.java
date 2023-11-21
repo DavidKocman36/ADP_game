@@ -2,7 +2,7 @@ package cz.cvut.fit.niadp.mvcgame;
 
 import java.util.List;
 
-import cz.cvut.fit.niadp.mvcgame.config.MvcGameConfig;
+import cz.cvut.fit.niadp.config.MvcGameConfig;
 import cz.cvut.fit.niadp.mvcgame.controller.GameController;
 // in the future, use Bridge to remove this dependency
 import cz.cvut.fit.niadp.mvcgame.memento.CareTaker;

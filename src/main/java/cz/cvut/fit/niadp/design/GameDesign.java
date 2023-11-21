@@ -1,7 +1,7 @@
 package cz.cvut.fit.niadp.design;
 
 import cz.cvut.fit.niadp.mvcgame.MvcGame;
-import cz.cvut.fit.niadp.mvcgame.config.MvcGameConfig;
+import cz.cvut.fit.niadp.config.MvcGameConfig;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.ImagePattern;

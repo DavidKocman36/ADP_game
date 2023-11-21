@@ -1,10 +1,9 @@
 package cz.cvut.fit.niadp.mvcgame.abstractfactory;
 
-import cz.cvut.fit.niadp.mvcgame.config.MvcGameConfig;
+import cz.cvut.fit.niadp.config.MvcGameConfig;
 import cz.cvut.fit.niadp.mvcgame.model.GameModel;
 import cz.cvut.fit.niadp.mvcgame.model.Position;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsMissile;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.CannonA;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.MissileA;
 
