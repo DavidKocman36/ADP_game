@@ -3,9 +3,6 @@ package cz.cvut.fit.niadp.mvcgame.model;
 public class Position {
     private int dimX = 0;
 	private int dimY = 0;
-	
-	public Position() {
-	}
 
 	public Position(int posX, int posY) {
 		this.dimX = posX;
@@ -32,5 +29,4 @@ public class Position {
 		this.setX(this.getX() + vector.getX());
 		this.setY(this.getY() + vector.getY());
 	}
-
 }

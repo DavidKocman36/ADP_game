@@ -1,6 +1,7 @@
 package cz.cvut.fit.niadp.mvcgame.model;
 
 import cz.cvut.fit.niadp.mvcgame.command.AbstractGameCommand;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsEnemy;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsMissile;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.GameObject;
 import cz.cvut.fit.niadp.mvcgame.observer.IObservable;
@@ -49,5 +50,7 @@ public interface IGameModel extends IObservable {
 
     void cannonSubMissile();
     Sounds getSounds();
+
+    List<AbsEnemy> getEnemies();
 }
 

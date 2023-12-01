@@ -11,5 +11,13 @@ public class GraphicsRenderer extends AbstractGraphicsRenderer {
     public void render(IGameGraphics gameGraphics, IGameModel model, GameObjectsRenderer gameObjectsRenderer) {
         gameGraphics.clear();
         model.getGameObjects().forEach(gameObject -> gameObject.acceptObjectVisitor(gameObjectsRenderer));
+        model.getEnemies().forEach(gameObject -> gameObject.acceptObjectVisitor(gameObjectsRenderer));
+    }
+
+    @Override
+    public void initRender(IGameGraphics gameGraphics, IGameModel model, GameObjectsRenderer gameObjectsRenderer) {
+        gameGraphics.clear();
+        model.getGameObjects().forEach(gameObject -> gameObject.acceptObjectVisitor(gameObjectsRenderer));
+
     }
 }

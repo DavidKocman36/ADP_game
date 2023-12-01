@@ -7,6 +7,7 @@ import cz.cvut.fit.niadp.mvcgame.command.AbstractGameCommand;
 import cz.cvut.fit.niadp.mvcgame.iterator.IIterator;
 import cz.cvut.fit.niadp.mvcgame.iterator.repos.MovingStrategyIteratorRepository;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsEnemy;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsMissile;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.GameObject;
 import cz.cvut.fit.niadp.mvcgame.observer.IObserver;
@@ -30,6 +31,8 @@ public class GameModel implements IGameModel {
     private final IIterator iterator;
     private final Queue<AbstractGameCommand> unexecutedCommands;
     private final Stack<AbstractGameCommand> executedCommands;
+    private List<AbsEnemy> enemies;
+    private List<AbsEnemy> hitEnemies;
 
 
     public GameModel() {
@@ -38,6 +41,7 @@ public class GameModel implements IGameModel {
         this.sounds = new Sounds();
         this.cannon = gameObjectFactory.createCannon();
         this.missiles = new ArrayList<>();
+        this.enemies = gameObjectFactory.createEnemies();
 
         this.movingStrategyIteratorRepository = new MovingStrategyIteratorRepository();
         this.iterator = this.movingStrategyIteratorRepository.getIterator();
@@ -190,14 +194,13 @@ public class GameModel implements IGameModel {
             this.notifyObservers(Aspect.PositionChangedAspect);
         }
     }
-
-
     public List<AbsMissile> getMissiles() {
         return this.missiles;
     }
-
     public List<GameObject> getGameObjects() {
         return Stream.concat(Stream.of(this.cannon), this.missiles.stream()).toList();
     }
-
+    public List<AbsEnemy> getEnemies(){
+        return this.enemies;
+    }
 }
