@@ -3,21 +3,23 @@ package cz.cvut.fit.niadp.mvcgame.model;
 import cz.cvut.fit.niadp.mvcgame.abstractfactory.GameObjectFactory;
 import cz.cvut.fit.niadp.mvcgame.abstractfactory.IGameObjectFactory;
 import cz.cvut.fit.niadp.config.MvcGameConfig;
+import cz.cvut.fit.niadp.mvcgame.command.AbstractGameCommand;
 import cz.cvut.fit.niadp.mvcgame.iterator.IIterator;
 import cz.cvut.fit.niadp.mvcgame.iterator.repos.MovingStrategyIteratorRepository;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsMissile;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.GameObject;
-import cz.cvut.fit.niadp.mvcgame.observer.IObservable;
 import cz.cvut.fit.niadp.mvcgame.observer.IObserver;
 import cz.cvut.fit.niadp.mvcgame.observer.aspects.Aspect;
 import cz.cvut.fit.niadp.mvcgame.strategy.IMovingStrategy;
 import cz.cvut.fit.niadp.mvcgame.visitor.sounds.Sounds;
 
 import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
+
 import java.util.stream.Stream;
 
-public class GameModel implements IObservable {
+public class GameModel implements IGameModel {
     private final IGameObjectFactory gameObjectFactory;
     private final AbsCannon cannon;
     private final List<AbsMissile> missiles;
@@ -26,6 +28,9 @@ public class GameModel implements IObservable {
     private IMovingStrategy movingStrategy;
     private final MovingStrategyIteratorRepository movingStrategyIteratorRepository;
     private final IIterator iterator;
+    private final Queue<AbstractGameCommand> unexecutedCommands;
+    private final Stack<AbstractGameCommand> executedCommands;
+
 
     public GameModel() {
         this.observers = new EnumMap<>(Aspect.class);
@@ -38,6 +43,9 @@ public class GameModel implements IObservable {
         this.iterator = this.movingStrategyIteratorRepository.getIterator();
         this.movingStrategy = (IMovingStrategy) this.iterator.next();
 
+        this.unexecutedCommands = new LinkedBlockingQueue<>();
+        this.executedCommands = new Stack<>();
+
         Arrays.stream(Aspect.values()).forEach(value ->
                 observers.put(value, new HashSet<>())
         );
@@ -48,6 +56,7 @@ public class GameModel implements IObservable {
     }
 
     public void update() {
+        this.executeCommands();
         this.moveMissiles();
     }
 
@@ -126,6 +135,13 @@ public class GameModel implements IObservable {
     public void cannonSubMissile() {
         this.cannon.subMissile();
     }
+    private void executeCommands() {
+        while(!this.unexecutedCommands.isEmpty()) {
+            AbstractGameCommand command = this.unexecutedCommands.poll();
+            command.doExecute();
+            this.executedCommands.add(command);
+        }
+    }
 
     private static class Memento {
         private int cannonPositionX;
@@ -162,6 +178,19 @@ public class GameModel implements IObservable {
     public void notifyObservers(Aspect interest) {
         this.observers.get(interest).forEach(IObserver::update);
     }
+
+    @Override
+    public void registerCommand(AbstractGameCommand command) {
+        this.unexecutedCommands.add(command);
+    }
+    @Override
+    public void undoLastCommand() {
+        if (!this.executedCommands.isEmpty()) {
+            this.executedCommands.pop().unExecute();
+            this.notifyObservers(Aspect.PositionChangedAspect);
+        }
+    }
+
 
     public List<AbsMissile> getMissiles() {
         return this.missiles;

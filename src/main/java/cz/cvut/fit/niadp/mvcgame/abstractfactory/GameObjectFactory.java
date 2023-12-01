@@ -2,6 +2,7 @@ package cz.cvut.fit.niadp.mvcgame.abstractfactory;
 
 import cz.cvut.fit.niadp.config.MvcGameConfig;
 import cz.cvut.fit.niadp.mvcgame.model.GameModel;
+import cz.cvut.fit.niadp.mvcgame.model.IGameModel;
 import cz.cvut.fit.niadp.mvcgame.model.Position;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.CannonA;
@@ -9,10 +10,10 @@ import cz.cvut.fit.niadp.mvcgame.model.gameobjects.MissileA;
 
 public class GameObjectFactory implements IGameObjectFactory {
 
-    private final GameModel model;
+    private final IGameModel model;
     private static IGameObjectFactory instance = null;
 
-    private GameObjectFactory(GameModel model) {
+    private GameObjectFactory(IGameModel model) {
         this.model = model;
     }
 

@@ -2,12 +2,14 @@ package cz.cvut.fit.niadp;
 
 import cz.cvut.fit.niadp.design.GameDesign;
 import cz.cvut.fit.niadp.design.MainMenuDesign;
+import cz.cvut.fit.niadp.mvcgame.bridge.GameGraphics;
+import cz.cvut.fit.niadp.mvcgame.bridge.IGameGraphics;
+import cz.cvut.fit.niadp.mvcgame.bridge.JavaFxGraphics;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 
@@ -38,8 +40,9 @@ public class MvcGameJavaFxLauncher extends Application {
 
         Canvas canvas = new Canvas( winWidth, winHeight );
         root.getChildren().add(canvas);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        theMvcGame.setGraphicsContext(gc);
+        IGameGraphics gameGraphics = new GameGraphics(new JavaFxGraphics(canvas.getGraphicsContext2D()));
+        theMvcGame.setGraphicsContext(gameGraphics);
+
 
         // the game-loop
         new AnimationTimer() {

@@ -3,22 +3,23 @@ package cz.cvut.fit.niadp.mvcgame;
 import java.util.List;
 
 import cz.cvut.fit.niadp.config.MvcGameConfig;
+import cz.cvut.fit.niadp.mvcgame.bridge.IGameGraphics;
 import cz.cvut.fit.niadp.mvcgame.controller.GameController;
-// in the future, use Bridge to remove this dependency
 import cz.cvut.fit.niadp.mvcgame.memento.CareTaker;
 import cz.cvut.fit.niadp.mvcgame.model.GameModel;
+import cz.cvut.fit.niadp.mvcgame.model.IGameModel;
+import cz.cvut.fit.niadp.mvcgame.proxy.GameModelProxy;
 import cz.cvut.fit.niadp.mvcgame.view.GameView;
-import javafx.scene.canvas.GraphicsContext;
 
 public class MvcGame {
 
 
-    private GameModel model;
+    private IGameModel model;
     private GameView view;
     private GameController controller;
 
     public void init() {
-        this.model = new GameModel();
+        this.model = new GameModelProxy(new GameModel());
         this.view = new GameView(model);
         this.controller = this.view.getController();
         CareTaker.getInstance().setModel(this.model);
@@ -44,8 +45,8 @@ public class MvcGame {
         return  MvcGameConfig.MAX_Y;
     }
 
-    public void setGraphicsContext(GraphicsContext gr) {
-        this.view.setGraphicsContext(gr);
+    public void setGraphicsContext(IGameGraphics gameGraphics) {
+        this.view.setGraphicsContext(gameGraphics);
     }
 
 }

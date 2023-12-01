@@ -1,26 +1,26 @@
 package cz.cvut.fit.niadp.mvcgame.controller;
 
 import cz.cvut.fit.niadp.config.MvcGameConfig;
-import cz.cvut.fit.niadp.mvcgame.memento.CareTaker;
-import cz.cvut.fit.niadp.mvcgame.model.GameModel;
+import cz.cvut.fit.niadp.mvcgame.command.MoveCannonDownCommand;
+import cz.cvut.fit.niadp.mvcgame.command.MoveCannonUpCommand;
+import cz.cvut.fit.niadp.mvcgame.model.IGameModel;
 
 import java.util.List;
 
 public class GameController {
-    private final GameModel model;
+    private final IGameModel model;
     private boolean isPressedAimUp = false;
     private boolean isPressedAimDown = false;
     private boolean isPressedPowerUp = false;
     private boolean isPressedPowerDown = false;
     private boolean isPressedMovingStrategy = false;
     private boolean isPressedShootingMode = false;
-    private boolean isPressedStore = false;
-    private boolean isPressedRestore = false;
+    private boolean isPressedUndo = false;
     private boolean isPressedShoot = false;
     private boolean isPressedAddMissile = false;
     private boolean isPressedSubMissile = false;
 
-    public GameController(GameModel model) {
+    public GameController(IGameModel model) {
         this.model = model;
     }
 
@@ -33,8 +33,7 @@ public class GameController {
             case MvcGameConfig.POWER_DOWN_KEY -> isPressedPowerDown = false;
             case MvcGameConfig.SHOOTING_MODE_KEY -> isPressedShootingMode = false;
             case MvcGameConfig.MOVING_STRATEGY_KEY -> isPressedMovingStrategy = false;
-            case MvcGameConfig.STORE_SNAPSHOT_KEY -> isPressedStore = false;
-            case MvcGameConfig.RESTORE_SNAPSHOT_KEY -> isPressedRestore = false;
+            case MvcGameConfig.UNDO_LAST_COMMAND_KEY -> isPressedUndo = false;
             case MvcGameConfig.ADD_MISSILE ->  isPressedAddMissile = false;
             case MvcGameConfig.REMOVE_MISSILE -> isPressedSubMissile = false;
         }
@@ -43,8 +42,8 @@ public class GameController {
     public void processPressedKeys(List<String> pressedKeysCodes) {
         for(String code : pressedKeysCodes) {
             switch (code) {
-                case MvcGameConfig.UP_KEY -> this.model.moveCannonUp();
-                case MvcGameConfig.DOWN_KEY -> this.model.moveCannonDown();
+                case MvcGameConfig.UP_KEY -> this.model.registerCommand(new MoveCannonUpCommand(this.model));
+                case MvcGameConfig.DOWN_KEY -> this.model.registerCommand(new MoveCannonDownCommand(this.model));
                 case MvcGameConfig.SHOOT_KEY -> {
                     if(!this.isPressedShoot) {
                         this.model.cannonShoot();
@@ -87,16 +86,10 @@ public class GameController {
                         this.isPressedShootingMode = true;
                     }
                 }
-                case MvcGameConfig.STORE_SNAPSHOT_KEY -> {
-                    if(!this.isPressedStore) {
-                        CareTaker.getInstance().createMemento();
-                        this.isPressedStore = true;
-                    }
-                }
-                case MvcGameConfig.RESTORE_SNAPSHOT_KEY -> {
-                    if(!this.isPressedRestore) {
-                        CareTaker.getInstance().setMemento();
-                        this.isPressedRestore = true;
+                case MvcGameConfig.UNDO_LAST_COMMAND_KEY -> {
+                    if(!this.isPressedUndo) {
+                        this.model.undoLastCommand();
+                        this.isPressedUndo = true;
                     }
                 }
                 case MvcGameConfig.ADD_MISSILE -> {

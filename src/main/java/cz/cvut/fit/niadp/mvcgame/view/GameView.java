@@ -1,21 +1,19 @@
 package cz.cvut.fit.niadp.mvcgame.view;
 
 import cz.cvut.fit.niadp.mvcgame.controller.GameController;
-import cz.cvut.fit.niadp.mvcgame.model.GameModel;
+import cz.cvut.fit.niadp.mvcgame.model.IGameModel;
 import cz.cvut.fit.niadp.mvcgame.observer.IObserver;
 import cz.cvut.fit.niadp.mvcgame.observer.aspects.Aspect;
 import cz.cvut.fit.niadp.mvcgame.view.renderer.AbstractGraphicsRenderer;
 import cz.cvut.fit.niadp.mvcgame.view.renderer.GraphicsRenderer;
 import cz.cvut.fit.niadp.mvcgame.view.renderer.NullGraphicsRenderer;
 import cz.cvut.fit.niadp.mvcgame.visitor.objectsrenderer.GameObjectsRenderer;
-import cz.cvut.fit.niadp.mvcgame.visitor.sounds.Sounds;
-import javafx.scene.canvas.GraphicsContext;
-
+import cz.cvut.fit.niadp.mvcgame.bridge.IGameGraphics;
 public class GameView implements IObserver {
 
-    private final GameModel model;
+    private final IGameModel model;
     private final GameController controller;
-    private GraphicsContext gr;
+    private IGameGraphics gameGraphics;
     private final GameObjectsRenderer gameObjectsRenderer;
 
 
@@ -23,7 +21,7 @@ public class GameView implements IObserver {
     private final GraphicsRenderer graphr;
     private final NullGraphicsRenderer n_graphr;
 
-    public GameView(GameModel model) {
+    public GameView(IGameModel model) {
         this.model = model;
         this.controller = new GameController(this.model);
         this.model.registerObserver(this, Aspect.PositionChangedAspect);
@@ -47,21 +45,22 @@ public class GameView implements IObserver {
     * This method returns a null object if the GraphicsContext is null.
     */
     public AbstractGraphicsRenderer setRenderer(){
-        if(this.gr == null){
+        if(this.gameGraphics == null){
             return this.n_graphr;
         }
         return this.graphr;
     }
 
-    public void setGraphicsContext(GraphicsContext gr) {
-        this.gr = gr;
-        graphicsRenderer = this.setRenderer();
-        gameObjectsRenderer.setGraphicsContext(gr);
-        graphicsRenderer.render(gr, model, gameObjectsRenderer);
+    public void setGraphicsContext(IGameGraphics gameGraphics) {
+        this.gameGraphics = gameGraphics;
+        this.graphicsRenderer = this.setRenderer();
+        this.gameObjectsRenderer.setGraphicsContext(gameGraphics);
+        graphicsRenderer.render(this.gameGraphics, model, gameObjectsRenderer);
     }
+
 
     @Override
     public void update() {
-        graphicsRenderer.render(gr, model, gameObjectsRenderer);
+        graphicsRenderer.render(this.gameGraphics, model, gameObjectsRenderer);
     }
 }
