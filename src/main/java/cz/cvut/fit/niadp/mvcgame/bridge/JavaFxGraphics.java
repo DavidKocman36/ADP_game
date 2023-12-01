@@ -13,8 +13,10 @@ public class JavaFxGraphics implements  IGameGraphicsImplementor {
         this.gr = gr;
     }
     @Override
-    public void drawImage(String path, Position position) {
-        this.gr.drawImage(new Image(path), position.getX(), position.getY());
+    public double[] drawImage(String path, Position position) {
+        Image img = new Image(path);
+        this.gr.drawImage(img, position.getX(), position.getY());
+        return new double[]{img.getWidth(), img.getHeight()};
     }
     @Override
     public void drawText(String text, Position position) {

@@ -9,8 +9,8 @@ public class GameGraphics implements IGameGraphics {
         this.implementor = implementor;
     }
     @Override
-    public void drawImage(String path, Position position) {
-        this.implementor.drawImage(path, position);
+    public double[] drawImage(String path, Position position) {
+        return this.implementor.drawImage(path, position);
     }
     @Override
     public void drawText(String text, Position position) {

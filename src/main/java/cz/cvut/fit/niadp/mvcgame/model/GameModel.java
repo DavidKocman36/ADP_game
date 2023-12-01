@@ -15,7 +15,10 @@ import cz.cvut.fit.niadp.mvcgame.observer.aspects.Aspect;
 import cz.cvut.fit.niadp.mvcgame.strategy.IMovingStrategy;
 import cz.cvut.fit.niadp.mvcgame.visitor.sounds.Sounds;
 
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import java.util.stream.Stream;
@@ -42,6 +45,7 @@ public class GameModel implements IGameModel {
         this.cannon = gameObjectFactory.createCannon();
         this.missiles = new ArrayList<>();
         this.enemies = gameObjectFactory.createEnemies();
+        this.hitEnemies = new ArrayList<>();
 
         this.movingStrategyIteratorRepository = new MovingStrategyIteratorRepository();
         this.iterator = this.movingStrategyIteratorRepository.getIterator();
@@ -61,19 +65,55 @@ public class GameModel implements IGameModel {
 
     public void update() {
         this.executeCommands();
+        this.checkEnemies();
         this.moveMissiles();
     }
 
     public void moveMissiles() {
         this.missiles.forEach(AbsMissile::move);
         this.destroyMissiles();
+        this.checkCollision();
         this.notifyObservers(Aspect.PositionChangedAspect);
+    }
+
+    private void checkCollision(){
+        for(AbsMissile missile : this.missiles){
+            Ellipse2D.Double e1 = new Ellipse2D.Double(missile.getPosition().getX(),
+                    missile.getPosition().getY(),
+                    (int)missile.getWidth(),
+                    (int)missile.getHeight());
+            Rectangle e1Bounds = e1.getBounds();
+
+            for(AbsEnemy enemy : this.enemies){
+                Ellipse2D.Double e2 = new Ellipse2D.Double(enemy.getPosition().getX(),
+                        enemy.getPosition().getY(),
+                        (int)enemy.getWidth(),
+                        (int)enemy.getHeight());
+                Rectangle e2Bounds = e2.getBounds();
+
+                if(e1Bounds.intersects(e2Bounds)){
+                    enemy.setImage(MvcGameConfig.HIT_ENEMY_IMAGE_RESOURCE);
+                    enemy.setCollided(enemy.getAge());
+                    this.hitEnemies.add(enemy);
+                }
+            }
+        }
+    }
+
+    private void checkEnemies(){
+        for(AbsEnemy e : this.hitEnemies){
+            if(e.getAge() >= e.getCollided() + 5000){
+                e.setImage(MvcGameConfig.BLOODY_ENEMY_IMAGE_RESOURCE);
+            }
+        }
     }
 
     private void destroyMissiles() {
         this.missiles.removeAll(
                 this.missiles.stream()
-                        .filter(missile -> missile.getPosition().getX() > MvcGameConfig.MAX_X || missile.getPosition().getY() > MvcGameConfig.MAX_Y)
+                        .filter(missile -> missile.getPosition().getX() > MvcGameConfig.MAX_X ||
+                                missile.getPosition().getY() > MvcGameConfig.MAX_Y ||
+                                missile.getAge() > 20000)
                         .toList()
         );
     }

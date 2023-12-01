@@ -12,6 +12,9 @@ public class MissileA extends AbsMissile{
         super(initPosition, initAngle, initVelocity);
         this.movingStrategy = movingStrategy;
         this.acceptSoundsVisitor(sounds);
+
+        this.width = 0;
+        this.height = 0;
     }
 
     @Override

@@ -38,6 +38,9 @@ public class CannonA extends AbsCannon {
         this.shootingModeIteratorRepository = new ShootingModeIteratorRepository();
         this.iterator = this.shootingModeIteratorRepository.getIterator();
         this.shootingMode = (IShootingMode) this.iterator.next();
+
+        this.width = 0;
+        this.height = 0;
     }
 
 

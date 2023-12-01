@@ -5,7 +5,8 @@ import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
 import javafx.scene.transform.Rotate;
 
 public interface IGameGraphics {
-    void drawImage(String path, Position position);
+    // This function returns the width and height of an image
+    double[] drawImage(String path, Position position);
     void drawText(String text, Position position);
     void drawRectangle(Position leftTop, Position rightBottom);
     void clear();

@@ -30,11 +30,15 @@ public class GameObjectsRenderer implements IGameObjectsVisitor {
 
     @Override
     public void visitMissile(AbsMissile missile) {
-        this.gameGraphics.drawImage(MvcGameConfig.MISSILE_IMAGE_RESOURCE, missile.getPosition());
+        double[] img = this.gameGraphics.drawImage(MvcGameConfig.MISSILE_IMAGE_RESOURCE, missile.getPosition());
+        missile.setWidth(img[0]);
+        missile.setHeight(img[1]);
     }
 
     @Override
     public void visitEnemy(AbsEnemy enemy) {
-        this.gameGraphics.drawImage(enemy.getImage(), enemy.getPosition());
+        double[] img = this.gameGraphics.drawImage(enemy.getImage(), enemy.getPosition());
+        enemy.setWidth(img[0]);
+        enemy.setHeight(img[1]);
     }
 }

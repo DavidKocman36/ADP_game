@@ -8,6 +8,9 @@ public abstract class GameObject implements IVisitable {
 
     protected Position position;
 
+    protected double width;
+    protected double height;
+
     public void move(Vector vector)
     {
         this.position.add(vector);
