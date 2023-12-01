@@ -15,9 +15,8 @@ public class GraphicsRenderer extends AbstractGraphicsRenderer {
     }
 
     @Override
-    public void initRender(IGameGraphics gameGraphics, IGameModel model, GameObjectsRenderer gameObjectsRenderer) {
+    public void infoRender(IGameGraphics gameGraphics, IGameModel model, GameObjectsRenderer gameObjectsRenderer) {
         gameGraphics.clear();
-        model.getGameObjects().forEach(gameObject -> gameObject.acceptObjectVisitor(gameObjectsRenderer));
-
+        model.getGameInfo().acceptObjectVisitor(gameObjectsRenderer);
     }
 }

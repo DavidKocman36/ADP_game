@@ -81,6 +81,11 @@ public class CannonA extends AbsCannon {
     }
 
     @Override
+    public int getPower() {
+        return this.power;
+    }
+
+    @Override
     public void setAngle(double angle){
         this.angle = angle;
     }

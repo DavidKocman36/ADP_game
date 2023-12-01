@@ -5,6 +5,10 @@ import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsMissile;
 
 public class SimpleMovingStrategy implements IMovingStrategy {
     @Override
+    public String getName() {
+        return "Simple";
+    }
+    @Override
     public void updatePosition(AbsMissile missile) {
         int initVelocity = missile.getInitVelocity();
         double initAngle = missile.getInitAngle();

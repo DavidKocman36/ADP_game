@@ -8,6 +8,11 @@ import java.util.Random;
 public class RandomMovingStrategy implements IMovingStrategy
 {
     @Override
+    public String getName() {
+        return "Random";
+    }
+
+    @Override
     public void updatePosition(AbsMissile missile) {
         Random rnd = new Random();
 

@@ -13,8 +13,8 @@ public class GameGraphics implements IGameGraphics {
         return this.implementor.drawImage(path, position);
     }
     @Override
-    public void drawText(String text, Position position) {
-        this.implementor.drawText(text, position);
+    public void drawText(String text, Position position, int size) {
+        this.implementor.drawText(text, position, size);
     }
     @Override
     public void drawRectangle(Position leftTop, Position rightBottom) {

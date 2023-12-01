@@ -5,7 +5,7 @@ import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
 public class DynamicShootingMode implements IShootingMode{
     @Override
     public String getName() {
-        return DoubleShootingMode.class.getSimpleName();
+        return "Dynamic";
     }
 
     @Override

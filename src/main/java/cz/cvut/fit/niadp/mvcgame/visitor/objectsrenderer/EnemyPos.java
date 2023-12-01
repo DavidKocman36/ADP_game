@@ -6,7 +6,7 @@ public class EnemyPos {
     * TODO: Enemy positions generator for each levels
     */
     private int[][] pos = {
-            {380, 59}, {500, 79}, {1180, 89},
+            {580, 59}, {560, 79}, {1180, 89},
             {780, 309}, {580, 339}, {1080, 439},
             {790, 459}
     };

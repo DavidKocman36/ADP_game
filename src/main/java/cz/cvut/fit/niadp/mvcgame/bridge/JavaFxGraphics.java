@@ -5,6 +5,8 @@ import cz.cvut.fit.niadp.mvcgame.model.Position;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.transform.Rotate;
 
 public class JavaFxGraphics implements  IGameGraphicsImplementor {
@@ -19,7 +21,8 @@ public class JavaFxGraphics implements  IGameGraphicsImplementor {
         return new double[]{img.getWidth(), img.getHeight()};
     }
     @Override
-    public void drawText(String text, Position position) {
+    public void drawText(String text, Position position, int size) {
+        this.gr.setFont(Font.font("Lucida Console", size));
         this.gr.fillText(text, position.getX(), position.getY());
     }
     @Override

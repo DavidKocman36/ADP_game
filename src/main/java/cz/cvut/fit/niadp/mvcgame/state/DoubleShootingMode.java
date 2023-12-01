@@ -5,7 +5,7 @@ import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
 public class DoubleShootingMode implements IShootingMode {
     @Override
     public String getName() {
-        return DoubleShootingMode.class.getSimpleName();
+        return "Double";
     }
 
     @Override

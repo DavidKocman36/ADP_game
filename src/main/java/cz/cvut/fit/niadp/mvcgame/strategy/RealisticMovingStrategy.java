@@ -6,6 +6,10 @@ import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsMissile;
 
 public class RealisticMovingStrategy implements IMovingStrategy {
     @Override
+    public String getName() {
+        return "Realistic";
+    }
+    @Override
     public void updatePosition(AbsMissile missile) {
         int initVelocity = missile.getInitVelocity();
         double initAngle = missile.getInitAngle();

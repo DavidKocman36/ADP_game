@@ -16,11 +16,11 @@ public class MvcGameConfig {
     public static final int MAX_X = (int)size.getWidth();
     public static final int MAX_Y = (int)size.getHeight();
     public static final int MOVE_STEP = 10;
-    public static final int CANNON_POS_X = 30;
+    public static final int CANNON_POS_X = 230;
     public static final int CANNON_POS_Y = MAX_Y / 2;
     public static final double ANGLE_STEP = Math.PI / 18;
     public static final int POWER_STEP = 5;
-    public static final int INIT_POWER = 11;
+    public static final int INIT_POWER = 10;
     public static final double INIT_ANGLE = 0.0;
     public static final double GRAVITY = 9.81;
     public static final int MAX_POWER = 50;

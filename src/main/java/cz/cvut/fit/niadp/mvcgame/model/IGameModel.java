@@ -1,6 +1,7 @@
 package cz.cvut.fit.niadp.mvcgame.model;
 
 import cz.cvut.fit.niadp.mvcgame.command.AbstractGameCommand;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsEnemy;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsMissile;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.GameObject;
@@ -13,6 +14,8 @@ public interface IGameModel extends IObservable {
     void update();
 
     Position getCannonPos();
+
+    GameInfo getGameInfo();
 
     void moveCannonUp();
 
@@ -52,5 +55,9 @@ public interface IGameModel extends IObservable {
     Sounds getSounds();
 
     List<AbsEnemy> getEnemies();
+    List<AbsEnemy> getHitEnemies();
+    AbsCannon getCannon();
+    int getNumberOfFiredMissiles();
+    int getScore();
 }
 

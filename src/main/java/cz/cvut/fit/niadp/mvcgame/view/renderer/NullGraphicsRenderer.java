@@ -13,7 +13,7 @@ public class NullGraphicsRenderer extends AbstractGraphicsRenderer {
     }
 
     @Override
-    public void initRender(IGameGraphics gameGraphics, IGameModel model, GameObjectsRenderer gameObjectsRenderer) {
+    public void infoRender(IGameGraphics gameGraphics, IGameModel model, GameObjectsRenderer gameObjectsRenderer) {
 
     }
 }

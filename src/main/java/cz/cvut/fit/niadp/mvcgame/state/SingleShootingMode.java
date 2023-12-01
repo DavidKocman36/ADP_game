@@ -5,7 +5,7 @@ import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
 public class SingleShootingMode implements IShootingMode {
     @Override
     public String getName() {
-        return SingleShootingMode.class.getSimpleName();
+        return "Single";
     }
 
     @Override

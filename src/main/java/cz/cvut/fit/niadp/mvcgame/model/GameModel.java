@@ -12,6 +12,7 @@ import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsMissile;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.GameObject;
 import cz.cvut.fit.niadp.mvcgame.observer.IObserver;
 import cz.cvut.fit.niadp.mvcgame.observer.aspects.Aspect;
+import cz.cvut.fit.niadp.mvcgame.state.IShootingMode;
 import cz.cvut.fit.niadp.mvcgame.strategy.IMovingStrategy;
 import cz.cvut.fit.niadp.mvcgame.visitor.sounds.Sounds;
 
@@ -25,6 +26,7 @@ import java.util.stream.Stream;
 
 public class GameModel implements IGameModel {
     private final IGameObjectFactory gameObjectFactory;
+    private GameInfo gameInfo;
     private final AbsCannon cannon;
     private final List<AbsMissile> missiles;
     private final Map<Aspect, Set<IObserver>> observers;
@@ -36,6 +38,8 @@ public class GameModel implements IGameModel {
     private final Stack<AbstractGameCommand> executedCommands;
     private List<AbsEnemy> enemies;
     private List<AbsEnemy> hitEnemies;
+    private int numberOfFiredMissiles;
+    private int score;
 
 
     public GameModel() {
@@ -46,6 +50,9 @@ public class GameModel implements IGameModel {
         this.missiles = new ArrayList<>();
         this.enemies = gameObjectFactory.createEnemies();
         this.hitEnemies = new ArrayList<>();
+        this.gameInfo = new GameInfo(this);
+        this.numberOfFiredMissiles = 0;
+        this.score = 0;
 
         this.movingStrategyIteratorRepository = new MovingStrategyIteratorRepository();
         this.iterator = this.movingStrategyIteratorRepository.getIterator();
@@ -91,10 +98,13 @@ public class GameModel implements IGameModel {
                         (int)enemy.getHeight());
                 Rectangle e2Bounds = e2.getBounds();
 
-                if(e1Bounds.intersects(e2Bounds)){
+                if(e1Bounds.intersects(e2Bounds) && !this.hitEnemies.contains(enemy)){
                     enemy.setImage(MvcGameConfig.HIT_ENEMY_IMAGE_RESOURCE);
                     enemy.setCollided(enemy.getAge());
                     this.hitEnemies.add(enemy);
+                    int range = (int)Math.sqrt( Math.pow(enemy.getPosition().getX() - this.cannon.getPosition().getX(), 2) + Math.pow(enemy.getPosition().getY() - this.cannon.getPosition().getY(), 2));
+                    this.score += 1000 + range / this.cannon.getPower();
+                    this.notifyObservers(Aspect.UpdateInfoAspect);
                 }
             }
         }
@@ -139,24 +149,34 @@ public class GameModel implements IGameModel {
     public void aimCannonUp() {
         this.cannon.aimUp();
         this.notifyObservers(Aspect.PositionChangedAspect);
+        this.notifyObservers(Aspect.UpdateInfoAspect);
     }
     public void aimCannonDown() {
         this.cannon.aimDown();
         this.notifyObservers(Aspect.PositionChangedAspect);
+        this.notifyObservers(Aspect.UpdateInfoAspect);
     }
     public void cannonPowerUp() {
         this.cannon.powerUp();
         this.notifyObservers(Aspect.PositionChangedAspect);
+        this.notifyObservers(Aspect.UpdateInfoAspect);
     }
     public void cannonPowerDown() {
         this.cannon.powerDown();
         this.notifyObservers(Aspect.PositionChangedAspect);
+        this.notifyObservers(Aspect.UpdateInfoAspect);
     }
 
-
     public void cannonShoot() {
-        this.missiles.addAll(this.cannon.shoot());
+        List<AbsMissile> batch = this.cannon.shoot();
+        this.numberOfFiredMissiles += batch.size();
+        this.missiles.addAll(batch);
         this.notifyObservers(Aspect.PositionChangedAspect);
+        this.notifyObservers(Aspect.UpdateInfoAspect);
+    }
+
+    public int getNumberOfFiredMissiles(){
+        return this.numberOfFiredMissiles;
     }
 
     public IMovingStrategy getMovingStrategy() {
@@ -165,19 +185,23 @@ public class GameModel implements IGameModel {
 
     public void toggleMovingStrategy() {
         this.movingStrategy = (IMovingStrategy) iterator.next();
+        this.notifyObservers(Aspect.UpdateInfoAspect);
     }
 
     public void toggleShootingMode() {
         this.cannon.toggleShootingMode();
         this.notifyObservers(Aspect.PositionChangedAspect);
+        this.notifyObservers(Aspect.UpdateInfoAspect);
     }
 
     public void cannonAddMissile() {
         this.cannon.addMissile();
+        this.notifyObservers(Aspect.UpdateInfoAspect);
     }
 
     public void cannonSubMissile() {
         this.cannon.subMissile();
+        this.notifyObservers(Aspect.UpdateInfoAspect);
     }
     private void executeCommands() {
         while(!this.unexecutedCommands.isEmpty()) {
@@ -185,6 +209,10 @@ public class GameModel implements IGameModel {
             command.doExecute();
             this.executedCommands.add(command);
         }
+    }
+
+    public GameInfo getGameInfo(){
+        return this.gameInfo;
     }
 
     private static class Memento {
@@ -243,4 +271,9 @@ public class GameModel implements IGameModel {
     public List<AbsEnemy> getEnemies(){
         return this.enemies;
     }
+    public List<AbsEnemy> getHitEnemies(){
+        return this.hitEnemies;
+    }
+    public AbsCannon getCannon(){return this.cannon;}
+    public int getScore(){return this.score;}
 }

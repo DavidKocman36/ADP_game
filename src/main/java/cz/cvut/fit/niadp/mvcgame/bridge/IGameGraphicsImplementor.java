@@ -6,7 +6,7 @@ import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
 public interface IGameGraphicsImplementor {
     // This function returns the width and height of an image
     double[] drawImage(String path, Position position);
-    void drawText(String text, Position position);
+    void drawText(String text, Position position, int size);
     void drawLine(Position beginPosition, Position endPosition);
     void clear();
     void save();

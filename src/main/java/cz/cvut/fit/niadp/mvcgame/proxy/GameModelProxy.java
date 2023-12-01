@@ -1,8 +1,10 @@
 package cz.cvut.fit.niadp.mvcgame.proxy;
 
 import cz.cvut.fit.niadp.mvcgame.command.AbstractGameCommand;
+import cz.cvut.fit.niadp.mvcgame.model.GameInfo;
 import cz.cvut.fit.niadp.mvcgame.model.IGameModel;
 import cz.cvut.fit.niadp.mvcgame.model.Position;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsEnemy;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsMissile;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.GameObject;
@@ -40,6 +42,12 @@ public class GameModelProxy implements IGameModel {
     public Position getCannonPos() {
         return this.subject.getCannonPos();
     }
+
+    @Override
+    public GameInfo getGameInfo() {
+        return this.subject.getGameInfo();
+    }
+
     @Override
     public void moveCannonUp() {
         this.subject.moveCannonUp();
@@ -123,6 +131,26 @@ public class GameModelProxy implements IGameModel {
     @Override
     public List<AbsEnemy> getEnemies() {
         return this.subject.getEnemies();
+    }
+
+    @Override
+    public List<AbsEnemy> getHitEnemies() {
+        return this.subject.getHitEnemies();
+    }
+
+    @Override
+    public AbsCannon getCannon() {
+        return this.subject.getCannon();
+    }
+
+    @Override
+    public int getNumberOfFiredMissiles() {
+        return this.subject.getNumberOfFiredMissiles();
+    }
+
+    @Override
+    public int getScore() {
+        return this.subject.getScore();
     }
 }
 
