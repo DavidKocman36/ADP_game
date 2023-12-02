@@ -67,6 +67,10 @@ public class CannonA extends AbsCannon {
         }
     }
     @Override
+    public void setPower(int power) {
+        this.power = power;
+    }
+    @Override
     public void powerUp() {
         this.power = Math.min(MvcGameConfig.MAX_POWER, this.power + MvcGameConfig.POWER_STEP);
     }
@@ -91,15 +95,18 @@ public class CannonA extends AbsCannon {
     }
 
     @Override
+    public void setNumberOfMissiles(int numberOfMissiles) {
+        this.numberOfMissiles = numberOfMissiles;
+    }
+
+    @Override
     public void addMissile() {
         this.numberOfMissiles += 1;
-        System.out.println(this.numberOfMissiles);
     }
 
     @Override
     public void subMissile() {
         this.numberOfMissiles = Math.max(1, this.numberOfMissiles - 1);
-        System.out.println(this.numberOfMissiles);
     }
 
     @Override

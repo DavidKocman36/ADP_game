@@ -1,8 +1,8 @@
 package cz.cvut.fit.niadp.mvcgame.controller;
 
 import cz.cvut.fit.niadp.config.MvcGameConfig;
-import cz.cvut.fit.niadp.mvcgame.command.MoveCannonDownCommand;
-import cz.cvut.fit.niadp.mvcgame.command.MoveCannonUpCommand;
+import cz.cvut.fit.niadp.mvcgame.command.*;
+import cz.cvut.fit.niadp.mvcgame.memento.CareTaker;
 import cz.cvut.fit.niadp.mvcgame.model.IGameModel;
 
 import java.util.List;
@@ -19,6 +19,7 @@ public class GameController {
     private boolean isPressedShoot = false;
     private boolean isPressedAddMissile = false;
     private boolean isPressedSubMissile = false;
+    private boolean isPressedPrevStep = false;
 
     public GameController(IGameModel model) {
         this.model = model;
@@ -36,6 +37,7 @@ public class GameController {
             case MvcGameConfig.UNDO_LAST_COMMAND_KEY -> isPressedUndo = false;
             case MvcGameConfig.ADD_MISSILE ->  isPressedAddMissile = false;
             case MvcGameConfig.REMOVE_MISSILE -> isPressedSubMissile = false;
+            case MvcGameConfig.STEP_BACK_KEY -> isPressedPrevStep = false;
         }
     }
 
@@ -46,43 +48,44 @@ public class GameController {
                 case MvcGameConfig.DOWN_KEY -> this.model.registerCommand(new MoveCannonDownCommand(this.model));
                 case MvcGameConfig.SHOOT_KEY -> {
                     if(!this.isPressedShoot) {
-                        this.model.cannonShoot();
+                        this.model.registerCommand(new CannonShootCommand(this.model));
+                        //CareTaker.getInstance().createMemento();
                         this.isPressedShoot = true;
                     }
                 }
                 case MvcGameConfig.AIM_UP_KEY -> {
                     if(!this.isPressedAimUp){
-                        this.model.aimCannonUp();
+                        this.model.registerCommand(new AimCannonUpCommand(this.model));
                         this.isPressedAimUp = true;
                     }
                 }
                 case MvcGameConfig.AIM_DOWN_KEY -> {
                     if(!this.isPressedAimDown){
-                        this.model.aimCannonDown();
+                        this.model.registerCommand(new AimCannonDownCommand(this.model));
                         this.isPressedAimDown = true;
                     }
                 }
                 case MvcGameConfig.POWER_UP_KEY -> {
                     if (!this.isPressedPowerUp) {
-                        this.model.cannonPowerUp();
+                        this.model.registerCommand(new PowerUpCommand(this.model));
                         this.isPressedPowerUp = true;
                     }
                 }
                 case MvcGameConfig.POWER_DOWN_KEY -> {
                     if (!this.isPressedPowerDown) {
-                        this.model.cannonPowerDown();
+                        this.model.registerCommand(new PowerDownCommand(this.model));
                         this.isPressedPowerDown = true;
                     }
                 }
                 case MvcGameConfig.MOVING_STRATEGY_KEY -> {
                     if (!this.isPressedMovingStrategy) {
-                        this.model.toggleMovingStrategy();
+                        this.model.registerCommand(new StrategyCommand(this.model));
                         this.isPressedMovingStrategy = true;
                     }
                 }
                 case MvcGameConfig.SHOOTING_MODE_KEY -> {
                     if(!this.isPressedShootingMode) {
-                        this.model.toggleShootingMode();
+                        this.model.registerCommand(new ShootingModeCommand(this.model));
                         this.isPressedShootingMode = true;
                     }
                 }
@@ -94,14 +97,20 @@ public class GameController {
                 }
                 case MvcGameConfig.ADD_MISSILE -> {
                     if(!this.isPressedAddMissile){
-                        this.model.cannonAddMissile();
+                        this.model.registerCommand(new AddMissileCommand(this.model));
                         this.isPressedAddMissile = true;
                     }
                 }
                 case MvcGameConfig.REMOVE_MISSILE -> {
                     if(!this.isPressedSubMissile){
-                        this.model.cannonSubMissile();
+                        this.model.registerCommand(new SubMissileCommand(this.model));
                         this.isPressedSubMissile = true;
+                    }
+                }
+                case MvcGameConfig.STEP_BACK_KEY->{
+                    if(!this.isPressedPrevStep){
+                        //CareTaker.getInstance().setMemento();
+                        this.isPressedPrevStep = true;
                     }
                 }
                 case MvcGameConfig.EXIT_KEY -> System.exit(0);
@@ -114,5 +123,3 @@ public class GameController {
         this.model.update();
     }
 }
-
-

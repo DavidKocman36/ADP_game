@@ -25,7 +25,8 @@ public class CareTaker {
     public void setMemento() {
         if (this.model != null) {
             if (!this.mementos.isEmpty()) {
-                this.model.setMemento(this.mementos.pop());
+                Object mem = this.mementos.pop();
+                this.model.setMemento(mem);
             }
         }
     }

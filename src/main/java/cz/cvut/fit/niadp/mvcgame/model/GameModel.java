@@ -6,10 +6,8 @@ import cz.cvut.fit.niadp.config.MvcGameConfig;
 import cz.cvut.fit.niadp.mvcgame.command.AbstractGameCommand;
 import cz.cvut.fit.niadp.mvcgame.iterator.IIterator;
 import cz.cvut.fit.niadp.mvcgame.iterator.repos.MovingStrategyIteratorRepository;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsEnemy;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsMissile;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.GameObject;
+import cz.cvut.fit.niadp.mvcgame.memento.CareTaker;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.*;
 import cz.cvut.fit.niadp.mvcgame.observer.IObserver;
 import cz.cvut.fit.niadp.mvcgame.observer.aspects.Aspect;
 import cz.cvut.fit.niadp.mvcgame.state.IShootingMode;
@@ -60,6 +58,9 @@ public class GameModel implements IGameModel {
 
         this.unexecutedCommands = new LinkedBlockingQueue<>();
         this.executedCommands = new Stack<>();
+
+        // The snapshot at the beginning
+        //CareTaker.getInstance().createMemento();
 
         Arrays.stream(Aspect.values()).forEach(value ->
                 observers.put(value, new HashSet<>())
@@ -216,22 +217,61 @@ public class GameModel implements IGameModel {
     }
 
     private static class Memento {
-        private int cannonPositionX;
         private int cannonPositionY;
-        // game model snapshot (enemies, gameInfo, strategy, state)
+        private GameInfo gameInfo;
+        private List<AbsEnemy> enemies;
+        private List<AbsEnemy> hitEnemies = new ArrayList<>();
+        private int numOfHitEnemies = 0;
+        private int firedMissiles;
+        private int score;
+
+        private double angle;
+        private int power;
+        private int numOfMissiles;
     }
 
     public Object createMemento() {
         Memento gameModelSnapshot = new Memento();
-        gameModelSnapshot.cannonPositionX = this.getCannonPos().getX();
         gameModelSnapshot.cannonPositionY = this.getCannonPos().getY();
+        gameModelSnapshot.gameInfo = this.gameInfo;
+
+        gameModelSnapshot.enemies = new ArrayList<>(this.enemies.size());
+        for(AbsEnemy e : this.enemies) {
+            AbsEnemy en = new EnemyA(e.getPosition(), e.getImage());
+            gameModelSnapshot.enemies.add(en);
+        }
+
+        gameModelSnapshot.numOfHitEnemies = this.hitEnemies.size();
+        gameModelSnapshot.hitEnemies = new ArrayList<>(this.enemies.size());
+        for(AbsEnemy e : this.hitEnemies){
+            AbsEnemy en = new EnemyA(e.getPosition(), e.getImage());
+            gameModelSnapshot.hitEnemies.add(en);
+        }
+
+        gameModelSnapshot.firedMissiles = this.numberOfFiredMissiles;
+        gameModelSnapshot.score = this.score;
+        gameModelSnapshot.angle = this.cannon.getAngle();
+        gameModelSnapshot.power = this.cannon.getPower();
+        gameModelSnapshot.numOfMissiles = this.getCannon().getNumberOfMissiles();
+
         return gameModelSnapshot;
     }
 
     public void setMemento(Object memento) {
         Memento gameModelSnapshot = (Memento) memento;
-        this.cannon.getPosition().setX(gameModelSnapshot.cannonPositionX);
-        this.cannon.getPosition().setY(gameModelSnapshot.cannonPositionY);
+        if(gameModelSnapshot != null) {
+            this.cannon.getPosition().setY(gameModelSnapshot.cannonPositionY);
+            this.gameInfo = gameModelSnapshot.gameInfo;
+            this.enemies.clear();
+            this.enemies.addAll(gameModelSnapshot.enemies);
+            this.hitEnemies.clear();
+            this.hitEnemies.addAll(gameModelSnapshot.hitEnemies);
+            this.numberOfFiredMissiles = gameModelSnapshot.firedMissiles;
+            this.score = gameModelSnapshot.score;
+            this.cannon.setAngle(gameModelSnapshot.angle);
+            this.cannon.setPower(gameModelSnapshot.power);
+            this.cannon.setNumberOfMissiles(gameModelSnapshot.numOfMissiles);
+        }
     }
 
     @Override
@@ -260,6 +300,7 @@ public class GameModel implements IGameModel {
         if (!this.executedCommands.isEmpty()) {
             this.executedCommands.pop().unExecute();
             this.notifyObservers(Aspect.PositionChangedAspect);
+            this.notifyObservers(Aspect.UpdateInfoAspect);
         }
     }
     public List<AbsMissile> getMissiles() {

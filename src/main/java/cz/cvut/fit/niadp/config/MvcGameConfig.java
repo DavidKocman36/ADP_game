@@ -40,6 +40,7 @@ public class MvcGameConfig {
     public static final String MOVING_STRATEGY_KEY = "M";
     public static final String SHOOTING_MODE_KEY = "N";
     public static final String UNDO_LAST_COMMAND_KEY = "B";
+    public static final String STEP_BACK_KEY = "Z";
     public static final String ADD_MISSILE = "RIGHT";
     public static final String REMOVE_MISSILE = "LEFT";
 
