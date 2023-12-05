@@ -10,6 +10,8 @@ import cz.cvut.fit.niadp.mvcgame.strategy.IMovingStrategy;
 import cz.cvut.fit.niadp.mvcgame.visitor.sounds.Sounds;
 
 import java.util.List;
+import java.util.Queue;
+
 public interface IGameModel extends IObservable {
     void update();
 
@@ -59,5 +61,7 @@ public interface IGameModel extends IObservable {
     AbsCannon getCannon();
     int getNumberOfFiredMissiles();
     int getScore();
+
+    Queue<AbstractGameCommand> getUnexecutedCommands();
 }
 

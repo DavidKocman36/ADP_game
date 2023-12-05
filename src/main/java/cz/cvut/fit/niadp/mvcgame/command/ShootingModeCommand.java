@@ -9,7 +9,7 @@ public class ShootingModeCommand extends AbstractGameCommand{
 
     @Override
     protected void execute() {
-        this.subject.getCannon().toggleShootingMode();
+        this.subject.toggleShootingMode();
     }
 
     @Override

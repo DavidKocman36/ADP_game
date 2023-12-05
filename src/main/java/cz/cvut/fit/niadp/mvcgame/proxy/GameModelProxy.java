@@ -14,6 +14,8 @@ import cz.cvut.fit.niadp.mvcgame.strategy.IMovingStrategy;
 import cz.cvut.fit.niadp.mvcgame.visitor.sounds.Sounds;
 
 import java.util.List;
+import java.util.Queue;
+
 public class GameModelProxy implements IGameModel {
     private IGameModel subject;
     public GameModelProxy(IGameModel model) {
@@ -151,6 +153,11 @@ public class GameModelProxy implements IGameModel {
     @Override
     public int getScore() {
         return this.subject.getScore();
+    }
+
+    @Override
+    public Queue<AbstractGameCommand> getUnexecutedCommands() {
+        return this.subject.getUnexecutedCommands();
     }
 }
 

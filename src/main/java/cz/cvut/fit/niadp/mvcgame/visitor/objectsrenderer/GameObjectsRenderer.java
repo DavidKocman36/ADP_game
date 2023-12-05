@@ -21,13 +21,13 @@ public class GameObjectsRenderer implements IGameObjectsVisitor {
     public void visitCannon(AbsCannon cannon) {
         this.gameGraphics.save(); // saves the current state on stack, including the current transform
         this.gameGraphics.rotateCannon(cannon);
-        this.gameGraphics.drawImage(MvcGameConfig.CANNON_IMAGE_RESOURCE, cannon.getPosition());
+        this.gameGraphics.drawImage(cannon.getImage(), cannon.getPosition());
         this.gameGraphics.restore(); // back to original state (before rotation)
     }
 
     @Override
     public void visitMissile(AbsMissile missile) {
-        double[] img = this.gameGraphics.drawImage(MvcGameConfig.MISSILE_IMAGE_RESOURCE, missile.getPosition());
+        double[] img = this.gameGraphics.drawImage(missile.getImage(), missile.getPosition());
         missile.setWidth(img[0]);
         missile.setHeight(img[1]);
     }

@@ -10,7 +10,9 @@ import cz.cvut.fit.niadp.mvcgame.state.IShootingMode;
 import cz.cvut.fit.niadp.mvcgame.visitor.objectsrenderer.IGameObjectsVisitor;
 import cz.cvut.fit.niadp.mvcgame.visitor.sounds.ISoundsVisitor;
 import cz.cvut.fit.niadp.mvcgame.visitor.sounds.Sounds;
+import javafx.scene.image.Image;
 
+import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,7 @@ public class CannonA extends AbsCannon {
     private final IIterator iterator;
 
 
-    public CannonA(Position initPosition, IGameObjectFactory gameObjectsFactory, Sounds sounds) {
+    public CannonA(Position initPosition, IGameObjectFactory gameObjectsFactory, Sounds sounds, Image image) {
         this.position = initPosition;
         this.gameObjectsFactory = gameObjectsFactory;
         this.power = MvcGameConfig.INIT_POWER;
@@ -38,6 +40,7 @@ public class CannonA extends AbsCannon {
         this.shootingModeIteratorRepository = new ShootingModeIteratorRepository();
         this.iterator = this.shootingModeIteratorRepository.getIterator();
         this.shootingMode = (IShootingMode) this.iterator.next();
+        this.image = image;
 
         this.width = 0;
         this.height = 0;
@@ -136,7 +139,6 @@ public class CannonA extends AbsCannon {
     @Override
     public void toggleShootingMode() {
         this.shootingMode = (IShootingMode) iterator.next();
-        System.out.println(shootingMode);
     }
 
     @Override

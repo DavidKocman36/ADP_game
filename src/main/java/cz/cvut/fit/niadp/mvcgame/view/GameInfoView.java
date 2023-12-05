@@ -14,7 +14,6 @@ import cz.cvut.fit.niadp.mvcgame.visitor.objectsrenderer.GameObjectsRenderer;
 public class GameInfoView implements IObserver {
     private final IGameModel model;
     private final GameInfo gameInfo;
-    private final GameController controller;
     private IGameGraphics gameGraphics;
     private final GameObjectsRenderer gameObjectsRenderer;
 
@@ -23,7 +22,6 @@ public class GameInfoView implements IObserver {
     private final NullGraphicsRenderer n_graphr;
     public GameInfoView(IGameModel model) {
         this.model = model;
-        this.controller = new GameController(this.model);
         this.model.registerObserver(this, Aspect.UpdateInfoAspect);
         this.gameObjectsRenderer = new GameObjectsRenderer();
         this.gameInfo = this.model.getGameInfo();
@@ -46,11 +44,11 @@ public class GameInfoView implements IObserver {
         this.gameGraphics = gameGraphics;
         this.graphicsRenderer = this.setRenderer();
         this.gameObjectsRenderer.setGraphicsContext(gameGraphics);
-        graphicsRenderer.infoRender(this.gameGraphics ,model, gameObjectsRenderer);
+        graphicsRenderer.infoRender(this.gameGraphics ,this.gameInfo, gameObjectsRenderer);
     }
 
     @Override
     public void update() {
-        graphicsRenderer.infoRender(this.gameGraphics, model, gameObjectsRenderer);
+        graphicsRenderer.infoRender(this.gameGraphics, this.gameInfo, gameObjectsRenderer);
     }
 }

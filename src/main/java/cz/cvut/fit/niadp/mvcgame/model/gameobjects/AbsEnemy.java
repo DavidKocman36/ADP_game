@@ -1,9 +1,10 @@
 package cz.cvut.fit.niadp.mvcgame.model.gameobjects;
 
 import cz.cvut.fit.niadp.mvcgame.model.Position;
+import javafx.scene.image.Image;
 
 public abstract class AbsEnemy extends LifetimeLimitedGameObject {
-    protected String image;
+    protected Image image;
     protected Long collided;
 
     protected AbsEnemy(Position position) {
@@ -13,8 +14,8 @@ public abstract class AbsEnemy extends LifetimeLimitedGameObject {
         this.collided = (long)0;
     }
 
-    public abstract String getImage();
-    public abstract void setImage(String image);
+    public abstract Image getImage();
+    public abstract void setImage(Image image);
     public double getWidth(){
         return this.width;
     }

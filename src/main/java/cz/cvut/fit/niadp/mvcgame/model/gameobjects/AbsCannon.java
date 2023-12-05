@@ -3,6 +3,7 @@ package cz.cvut.fit.niadp.mvcgame.model.gameobjects;
 import cz.cvut.fit.niadp.mvcgame.state.DoubleShootingMode;
 import cz.cvut.fit.niadp.mvcgame.state.IShootingMode;
 import cz.cvut.fit.niadp.mvcgame.state.SingleShootingMode;
+import javafx.scene.image.Image;
 
 import java.util.List;
 
@@ -11,6 +12,9 @@ public abstract class AbsCannon extends GameObject{
 
     protected int power;
     protected double angle;
+
+    protected Image image;
+    public Image getImage(){return this.image;}
     protected int numberOfMissiles;
     public abstract void primitiveShoot();
     public abstract List<AbsMissile> shoot();

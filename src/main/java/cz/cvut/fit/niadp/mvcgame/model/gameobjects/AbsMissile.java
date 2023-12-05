@@ -1,10 +1,12 @@
 package cz.cvut.fit.niadp.mvcgame.model.gameobjects;
 
 import cz.cvut.fit.niadp.mvcgame.model.Position;
+import javafx.scene.image.Image;
 
 public abstract class AbsMissile extends LifetimeLimitedGameObject {
     private final double initAngle;
     private final int initVelocity;
+    protected Image image;
     protected AbsMissile(Position initPosition, double initAngle, int initVelocity) {
         super(initPosition);
         this.initAngle = initAngle;
@@ -17,6 +19,7 @@ public abstract class AbsMissile extends LifetimeLimitedGameObject {
     public int getInitVelocity() {
         return this.initVelocity;
     }
+    public Image getImage(){return this.image;}
 
     public double getWidth(){
         return this.width;

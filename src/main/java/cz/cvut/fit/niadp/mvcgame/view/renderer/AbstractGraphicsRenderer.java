@@ -9,5 +9,5 @@ public abstract class AbstractGraphicsRenderer {
 
     public abstract void render(IGameGraphics gameGraphics, IGameModel model, GameObjectsRenderer gameObjectsRenderer);
 
-    public abstract void infoRender(IGameGraphics gameGraphics, IGameModel model, GameObjectsRenderer gameObjectsRenderer);
+    public abstract void infoRender(IGameGraphics gameGraphics, GameInfo info, GameObjectsRenderer gameObjectsRenderer);
 }

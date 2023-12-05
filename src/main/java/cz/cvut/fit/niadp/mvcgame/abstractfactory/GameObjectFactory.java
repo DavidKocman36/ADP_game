@@ -6,6 +6,7 @@ import cz.cvut.fit.niadp.mvcgame.model.IGameModel;
 import cz.cvut.fit.niadp.mvcgame.model.Position;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.*;
 import cz.cvut.fit.niadp.mvcgame.visitor.objectsrenderer.EnemyPos;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +16,18 @@ public class GameObjectFactory implements IGameObjectFactory {
 
     private final IGameModel model;
     private static IGameObjectFactory instance = null;
+    private final Image missileImg;
+    private final Image cannonImg;
+    private final Image enemy1Img;
+    private final Image enemy2Img;
+
 
     private GameObjectFactory(IGameModel model) {
         this.model = model;
+        this.missileImg = MvcGameConfig.MISSILE_IMAGE;
+        this.cannonImg = MvcGameConfig.CANNON_IMAGE;
+        this.enemy1Img = MvcGameConfig.ENEMY1_IMAGE;
+        this.enemy2Img = MvcGameConfig.ENEMY2_IMAGE;
     }
 
     public static IGameObjectFactory getInstance(GameModel model){
@@ -32,7 +42,8 @@ public class GameObjectFactory implements IGameObjectFactory {
         return new CannonA(
                 new Position(MvcGameConfig.CANNON_POS_X, MvcGameConfig.CANNON_POS_Y),
                 this,
-                this.model.getSounds()
+                this.model.getSounds(),
+                this.cannonImg
         );
     }
 
@@ -43,7 +54,8 @@ public class GameObjectFactory implements IGameObjectFactory {
                 initAngle,
                 initVelocity,
                 this.model.getMovingStrategy(),
-                this.model.getSounds()
+                this.model.getSounds(),
+                this.missileImg
         );
 
     }
@@ -53,7 +65,7 @@ public class GameObjectFactory implements IGameObjectFactory {
         EnemyPos enemyPos = new EnemyPos();
         int[][] pos = enemyPos.getInitPos();
         List<AbsEnemy> enemies = new ArrayList<>();
-        String [] arr = {MvcGameConfig.ENEMY1_IMAGE_RESOURCE, MvcGameConfig.ENEMY2_IMAGE_RESOURCE};
+        Image [] arr = {this.enemy1Img, this.enemy2Img};
         Random random = new Random();
         int select;
         for (int[] p : pos) {

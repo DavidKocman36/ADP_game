@@ -2,6 +2,9 @@ package cz.cvut.fit.niadp.mvcgame.bridge;
 
 import cz.cvut.fit.niadp.mvcgame.model.Position;
 import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
+import javafx.scene.image.Image;
+
+import java.awt.*;
 
 public class GameGraphics implements IGameGraphics {
     private final IGameGraphicsImplementor implementor;
@@ -12,6 +15,12 @@ public class GameGraphics implements IGameGraphics {
     public double[] drawImage(String path, Position position) {
         return this.implementor.drawImage(path, position);
     }
+
+    @Override
+    public double[] drawImage(Image img, Position position) {
+        return this.implementor.drawImage(img, position);
+    }
+
     @Override
     public void drawText(String text, Position position, int size) {
         this.implementor.drawText(text, position, size);

@@ -12,7 +12,7 @@ repositories {
 dependencies {
     implementation 'junit:junit:4.13.2'
     implementation 'org.openjfx:javafx-controls:20'
-    testImplementation 'org.jmockit:jmockit:1.49'
+    testImplementation "org.mockito:mockito-core:3.+"
 }
 
 application {
@@ -29,6 +29,3 @@ java {
     targetCompatibility = JavaVersion.VERSION_19
 }
 
-test {
-    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
-}

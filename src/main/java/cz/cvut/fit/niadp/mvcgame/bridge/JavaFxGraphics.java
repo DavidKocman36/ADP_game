@@ -6,7 +6,6 @@ import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.transform.Rotate;
 
 public class JavaFxGraphics implements  IGameGraphicsImplementor {
@@ -17,6 +16,12 @@ public class JavaFxGraphics implements  IGameGraphicsImplementor {
     @Override
     public double[] drawImage(String path, Position position) {
         Image img = new Image(path);
+        this.gr.drawImage(img, position.getX(), position.getY());
+        return new double[]{img.getWidth(), img.getHeight()};
+    }
+
+    @Override
+    public double[] drawImage(Image img, Position position) {
         this.gr.drawImage(img, position.getX(), position.getY());
         return new double[]{img.getWidth(), img.getHeight()};
     }

@@ -49,7 +49,6 @@ public class GameController {
                 case MvcGameConfig.SHOOT_KEY -> {
                     if(!this.isPressedShoot) {
                         this.model.registerCommand(new CannonShootCommand(this.model));
-                        //CareTaker.getInstance().createMemento();
                         this.isPressedShoot = true;
                     }
                 }
@@ -109,7 +108,6 @@ public class GameController {
                 }
                 case MvcGameConfig.STEP_BACK_KEY->{
                     if(!this.isPressedPrevStep){
-                        //CareTaker.getInstance().setMemento();
                         this.isPressedPrevStep = true;
                     }
                 }

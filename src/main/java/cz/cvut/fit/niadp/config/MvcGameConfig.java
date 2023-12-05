@@ -50,6 +50,14 @@ public class MvcGameConfig {
     public static final String ENEMY2_IMAGE_RESOURCE = "images/enemy2.png";
     public static final String HIT_ENEMY_IMAGE_RESOURCE = "images/collision.png";
     public static final String BLOODY_ENEMY_IMAGE_RESOURCE = "images/enemy2WithBlood.png";
+
+    public static final Image CANNON_IMAGE = new Image(CANNON_IMAGE_RESOURCE);
+    public static final Image MISSILE_IMAGE = new Image(MISSILE_IMAGE_RESOURCE);
+    public static final Image ENEMY1_IMAGE = new Image(ENEMY1_IMAGE_RESOURCE);
+    public static final Image ENEMY2_IMAGE = new Image(ENEMY2_IMAGE_RESOURCE);
+    public static final Image HIT_ENEMY_IMAGE = new Image(HIT_ENEMY_IMAGE_RESOURCE);
+    public static final Image BLOODY_ENEMY_IMAGE = new Image(BLOODY_ENEMY_IMAGE_RESOURCE);
+
     public static final String BOOM_SOUND_RESOURCE = "/sounds/boom.mp3";
     public static final String MISSILE_SOUND_RESOURCE = "/sounds/missile.mp3";
     public static final Image BACKGROUND_IMAGE = new Image("images/back.jpg");

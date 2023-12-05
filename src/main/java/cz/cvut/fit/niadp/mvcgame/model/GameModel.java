@@ -59,9 +59,6 @@ public class GameModel implements IGameModel {
         this.unexecutedCommands = new LinkedBlockingQueue<>();
         this.executedCommands = new Stack<>();
 
-        // The snapshot at the beginning
-        //CareTaker.getInstance().createMemento();
-
         Arrays.stream(Aspect.values()).forEach(value ->
                 observers.put(value, new HashSet<>())
         );
@@ -100,7 +97,7 @@ public class GameModel implements IGameModel {
                 Rectangle e2Bounds = e2.getBounds();
 
                 if(e1Bounds.intersects(e2Bounds) && !this.hitEnemies.contains(enemy)){
-                    enemy.setImage(MvcGameConfig.HIT_ENEMY_IMAGE_RESOURCE);
+                    enemy.setImage(MvcGameConfig.HIT_ENEMY_IMAGE);
                     enemy.setCollided(enemy.getAge());
                     this.hitEnemies.add(enemy);
                     int range = (int)Math.sqrt( Math.pow(enemy.getPosition().getX() - this.cannon.getPosition().getX(), 2) + Math.pow(enemy.getPosition().getY() - this.cannon.getPosition().getY(), 2));
@@ -114,7 +111,7 @@ public class GameModel implements IGameModel {
     private void checkEnemies(){
         for(AbsEnemy e : this.hitEnemies){
             if(e.getAge() >= e.getCollided() + 5000){
-                e.setImage(MvcGameConfig.BLOODY_ENEMY_IMAGE_RESOURCE);
+                e.setImage(MvcGameConfig.BLOODY_ENEMY_IMAGE);
             }
         }
     }
@@ -317,4 +314,7 @@ public class GameModel implements IGameModel {
     }
     public AbsCannon getCannon(){return this.cannon;}
     public int getScore(){return this.score;}
+    public Queue<AbstractGameCommand> getUnexecutedCommands(){
+        return this.unexecutedCommands;
+    }
 }
