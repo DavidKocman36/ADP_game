@@ -10,6 +10,6 @@ import java.util.List;
 public interface IGameObjectFactory {
     AbsCannon createCannon();
     AbsMissile createMissile(double initAngle, int initVelocity);
-    List<AbsEnemy> createEnemies(int[][] pos);
-    List<AbsObstacle> createObstacles(int[][] pos);
+    List<AbsEnemy> createEnemies(float[][] pos);
+    List<AbsObstacle> createObstacles(float[][] pos);
 }

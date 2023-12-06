@@ -233,7 +233,7 @@ public class GameModel implements IGameModel {
     }
 
     private static class Memento {
-        private int cannonPositionY;
+        private float cannonPositionY;
         private GameInfo gameInfo;
         private List<AbsEnemy> enemies;
         private List<AbsEnemy> hitEnemies = new ArrayList<>();

@@ -25,10 +25,10 @@ public class GameGraphics implements IGameGraphics {
     }
     @Override
     public void drawRectangle(Position leftTop, Position rightBottom) {
-        this.implementor.drawLine(leftTop, new Position(rightBottom.getX(), leftTop.getY()));
+        /*this.implementor.drawLine(leftTop, new Position(rightBottom.getX(), leftTop.getY()));
         this.implementor.drawLine(new Position(rightBottom.getX(), leftTop.getY()), rightBottom);
         this.implementor.drawLine(rightBottom, new Position(leftTop.getX(), rightBottom.getY()));
-        this.implementor.drawLine(new Position(leftTop.getX(), rightBottom.getY()), leftTop);
+        this.implementor.drawLine(new Position(leftTop.getX(), rightBottom.getY()), leftTop);*/
     }
     @Override
     public void clear() {

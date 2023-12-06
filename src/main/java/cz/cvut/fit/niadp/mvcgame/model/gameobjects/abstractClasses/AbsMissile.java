@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 
 public abstract class AbsMissile extends LifetimeLimitedGameObject {
     private final double initAngle;
-    private final int initVelocity;
+    private double initVelocity;
     protected Image image;
     protected AbsMissile(Position initPosition, double initAngle, int initVelocity) {
         super(initPosition);
@@ -15,9 +15,6 @@ public abstract class AbsMissile extends LifetimeLimitedGameObject {
     public abstract void move();
     public double getInitAngle() {
         return this.initAngle;
-    }
-    public int getInitVelocity() {
-        return this.initVelocity;
     }
     public Image getImage(){return this.image;}
 
@@ -32,6 +29,13 @@ public abstract class AbsMissile extends LifetimeLimitedGameObject {
     }
     public void setHeight(double height){
         this.height = height;
+    }
+
+    public double getVelocity(){
+        return this.initVelocity;
+    }
+    public void setVelocity(double velocity){
+        this.initVelocity = velocity;
     }
 
 }

@@ -68,12 +68,12 @@ public class GameObjectFactory implements IGameObjectFactory {
     }
 
     @Override
-    public List<AbsEnemy> createEnemies(int[][] pos) {
+    public List<AbsEnemy> createEnemies(float[][] pos) {
         List<AbsEnemy> enemies = new ArrayList<>();
         Image [] arr = {this.enemy1Img, this.enemy2Img};
         Random random = new Random();
         int select;
-        for (int[] p : pos) {
+        for (float[] p : pos) {
             select = random.nextInt(arr.length);
             enemies.add(new EnemyA(new Position(p[0], p[1]), arr[select]));
         }
@@ -81,9 +81,9 @@ public class GameObjectFactory implements IGameObjectFactory {
     }
 
     @Override
-    public List<AbsObstacle> createObstacles(int[][] pos) {
+    public List<AbsObstacle> createObstacles(float[][] pos) {
         List<AbsObstacle> obstacles = new ArrayList<>();
-        for (int[] p : pos) {
+        for (float[] p : pos) {
             obstacles.add(new ObstacleA(new Position(p[0], p[1]), this.obstacleImg));
         }
 

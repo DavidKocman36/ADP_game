@@ -1,27 +1,27 @@
 package cz.cvut.fit.niadp.mvcgame.model;
 
 public class Vector {
-        private int dX = 0;
-        private int dY = 0;
+        private float dX = 0;
+        private float dY = 0;
 
 
-        public Vector(int pX, int pY) {
+        public Vector(float pX, float pY) {
             this.dX = pX;
             this.dY = pY;
         }
 
-        public int getX() {
+        public float getX() {
             return dX;
         }
 
-        public int getY() {
+        public float getY() {
             return dY;
         }
 
-        public void setX(int x) {
+        public void setX(float x) {
             this.dX = x;
         }
-        public void setY(int y) {
+        public void setY(float y) {
             this.dY = y;
         }
 }

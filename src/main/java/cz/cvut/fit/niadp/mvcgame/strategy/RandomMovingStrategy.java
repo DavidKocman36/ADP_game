@@ -16,14 +16,14 @@ public class RandomMovingStrategy implements IMovingStrategy
     public void updatePosition(AbsMissile missile) {
         Random rnd = new Random();
 
-        int initVelocity = missile.getInitVelocity();
+        double initVelocity = missile.getVelocity();
         double initAngle = missile.getInitAngle();
         long time = missile.getAge() / 100;
 
-        int dX = (int) (initVelocity * time * Math.cos(initAngle));
+        float dX = (float) (initVelocity * time * Math.cos(initAngle))/10;
         int number = rnd.nextInt(100);
-        int aux = (int) (initVelocity * time * Math.sin(initAngle));
-        int dY;
+        int aux = (int) (initVelocity * time * Math.sin(initAngle))/10;
+        float dY;
         if(number > 75) {
             dY = rnd.nextInt(aux,aux+50);
         }
