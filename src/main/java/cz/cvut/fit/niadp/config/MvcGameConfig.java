@@ -7,6 +7,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 
 import java.awt.*;
 
@@ -50,6 +51,7 @@ public class MvcGameConfig {
     public static final String ENEMY2_IMAGE_RESOURCE = "images/enemy2.png";
     public static final String HIT_ENEMY_IMAGE_RESOURCE = "images/collision.png";
     public static final String BLOODY_ENEMY_IMAGE_RESOURCE = "images/enemy2WithBlood.png";
+    public static final String OBSTACLE_IMAGE_RESOURCE = "images/bound.png";
 
     public static final Image CANNON_IMAGE = new Image(CANNON_IMAGE_RESOURCE);
     public static final Image MISSILE_IMAGE = new Image(MISSILE_IMAGE_RESOURCE);
@@ -57,6 +59,7 @@ public class MvcGameConfig {
     public static final Image ENEMY2_IMAGE = new Image(ENEMY2_IMAGE_RESOURCE);
     public static final Image HIT_ENEMY_IMAGE = new Image(HIT_ENEMY_IMAGE_RESOURCE);
     public static final Image BLOODY_ENEMY_IMAGE = new Image(BLOODY_ENEMY_IMAGE_RESOURCE);
+    public static final Image OBSTACLE_IMAGE = new Image(OBSTACLE_IMAGE_RESOURCE);
 
     public static final String BOOM_SOUND_RESOURCE = "/sounds/boom.mp3";
     public static final String MISSILE_SOUND_RESOURCE = "/sounds/missile.mp3";
@@ -87,5 +90,20 @@ public class MvcGameConfig {
             MvcGameConfig.class.getResource(MvcGameConfig.BOOM_SOUND_RESOURCE).toExternalForm()
     );
 
-
+    public static final Background GAME_BACKGROUND = new Background(
+            new BackgroundFill(
+                    new ImagePattern(
+                            MvcGameConfig.BACKGROUND_IMAGE, 0, 0,
+                            MAX_X,
+                            MAX_Y,
+                            false),
+                    CornerRadii.EMPTY,
+                    Insets.EMPTY
+            ),
+            new BackgroundFill(
+                    Color.color(1.0, 1.0, 1.0, 0.4),
+                    CornerRadii.EMPTY,
+                    Insets.EMPTY
+            )
+    );
 }

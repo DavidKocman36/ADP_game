@@ -56,4 +56,8 @@ public class MvcGame {
         this.gameInfoView.setGraphicsContext(gameGraphics);
     }
 
+    public void selectLevel(int level){
+        this.controller.selectedLevel(level);
+    }
+
 }

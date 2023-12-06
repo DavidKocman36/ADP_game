@@ -1,11 +1,8 @@
 package cz.cvut.fit.niadp.mvcgame.bridge;
 
 import cz.cvut.fit.niadp.mvcgame.model.Position;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsCannon;
 import javafx.scene.image.Image;
-
-
-import java.awt.*;
 
 public interface IGameGraphics {
     // This function returns the width and height of an image

@@ -120,4 +120,8 @@ public class GameController {
         }
         this.model.update();
     }
+
+    public void selectedLevel(int level){
+        this.model.generateLevel(level);
+    }
 }

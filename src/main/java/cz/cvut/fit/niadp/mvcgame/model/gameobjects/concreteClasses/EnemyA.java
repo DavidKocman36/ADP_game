@@ -1,11 +1,12 @@
-package cz.cvut.fit.niadp.mvcgame.model.gameobjects;
+package cz.cvut.fit.niadp.mvcgame.model.gameobjects.concreteClasses;
 
 import cz.cvut.fit.niadp.mvcgame.model.Position;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsEnemy;
 import cz.cvut.fit.niadp.mvcgame.visitor.objectsrenderer.IGameObjectsVisitor;
 import cz.cvut.fit.niadp.mvcgame.visitor.sounds.ISoundsVisitor;
 import javafx.scene.image.Image;
 
-public class EnemyA extends AbsEnemy{
+public class EnemyA extends AbsEnemy {
     public EnemyA(Position initPosition, Image image) {
         super(initPosition);
         this.position = initPosition;

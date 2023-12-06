@@ -2,7 +2,7 @@ package cz.cvut.fit.niadp.mvcgame.strategy;
 
 import cz.cvut.fit.niadp.config.MvcGameConfig;
 import cz.cvut.fit.niadp.mvcgame.model.Vector;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsMissile;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsMissile;
 
 public class RealisticMovingStrategy implements IMovingStrategy {
     @Override

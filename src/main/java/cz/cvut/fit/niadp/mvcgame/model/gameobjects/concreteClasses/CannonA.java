@@ -1,4 +1,4 @@
-package cz.cvut.fit.niadp.mvcgame.model.gameobjects;
+package cz.cvut.fit.niadp.mvcgame.model.gameobjects.concreteClasses;
 
 import cz.cvut.fit.niadp.mvcgame.abstractfactory.IGameObjectFactory;
 import cz.cvut.fit.niadp.config.MvcGameConfig;
@@ -6,13 +6,14 @@ import cz.cvut.fit.niadp.mvcgame.iterator.IIterator;
 import cz.cvut.fit.niadp.mvcgame.iterator.repos.ShootingModeIteratorRepository;
 import cz.cvut.fit.niadp.mvcgame.model.Position;
 import cz.cvut.fit.niadp.mvcgame.model.Vector;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsCannon;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsMissile;
 import cz.cvut.fit.niadp.mvcgame.state.IShootingMode;
 import cz.cvut.fit.niadp.mvcgame.visitor.objectsrenderer.IGameObjectsVisitor;
 import cz.cvut.fit.niadp.mvcgame.visitor.sounds.ISoundsVisitor;
 import cz.cvut.fit.niadp.mvcgame.visitor.sounds.Sounds;
 import javafx.scene.image.Image;
 
-import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

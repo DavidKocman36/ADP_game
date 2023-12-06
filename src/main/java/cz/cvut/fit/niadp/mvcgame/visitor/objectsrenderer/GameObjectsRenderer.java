@@ -1,13 +1,13 @@
 package cz.cvut.fit.niadp.mvcgame.visitor.objectsrenderer;
 
 
-import cz.cvut.fit.niadp.config.MvcGameConfig;
 import cz.cvut.fit.niadp.mvcgame.bridge.IGameGraphics;
 import cz.cvut.fit.niadp.mvcgame.model.GameInfo;
 import cz.cvut.fit.niadp.mvcgame.model.Position;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsEnemy;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsMissile;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsCannon;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsEnemy;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsMissile;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsObstacle;
 
 public class GameObjectsRenderer implements IGameObjectsVisitor {
 
@@ -54,5 +54,10 @@ public class GameObjectsRenderer implements IGameObjectsVisitor {
         this.gameGraphics.drawText("No. of missiles: " + gameInfo.numOfMissiles, new Position(10, 160), 12);
         this.gameGraphics.drawText("Shooting mode: " + gameInfo.cannonState, new Position(10, 175), 12);
         this.gameGraphics.drawText("Strategy: " + gameInfo.missileStrategy, new Position(10, 190), 12);
+    }
+
+    @Override
+    public void visitObstacle(AbsObstacle obstacle) {
+        this.gameGraphics.drawImage(obstacle.getImage(), obstacle.getPosition());
     }
 }

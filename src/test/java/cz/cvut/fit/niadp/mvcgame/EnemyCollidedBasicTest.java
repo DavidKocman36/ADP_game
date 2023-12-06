@@ -2,8 +2,8 @@ package cz.cvut.fit.niadp.mvcgame;
 
 import cz.cvut.fit.niadp.config.MvcGameConfig;
 import cz.cvut.fit.niadp.mvcgame.model.Position;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsEnemy;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.EnemyA;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsEnemy;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.concreteClasses.EnemyA;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -25,22 +25,7 @@ public class MainMenuDesign {
         LabelBuilder lBuilder = new LabelBuilder();
         VBox menuLayout = new VBox(10);
 
-        menuLayout.setBackground(new Background(
-                new BackgroundFill(
-                        new ImagePattern(
-                                MvcGameConfig.BACKGROUND_IMAGE, 0, 0,
-                                winWidth,
-                                winHeight,
-                                false),
-                        CornerRadii.EMPTY,
-                        Insets.EMPTY
-                ),
-                new BackgroundFill(
-                        Color.color(1.0, 1.0, 1.0, 0.4),
-                        CornerRadii.EMPTY,
-                        Insets.EMPTY
-                )
-        ));
+        menuLayout.setBackground(MvcGameConfig.GAME_BACKGROUND);
 
         Label menuName = lBuilder.setText("The Furious Fowls")
                 .setFont(Font.font("Lucida Console", FontWeight.BOLD,35))

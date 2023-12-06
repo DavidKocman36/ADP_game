@@ -1,8 +1,6 @@
-package cz.cvut.fit.niadp.mvcgame.model.gameobjects;
+package cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses;
 
-import cz.cvut.fit.niadp.mvcgame.state.DoubleShootingMode;
 import cz.cvut.fit.niadp.mvcgame.state.IShootingMode;
-import cz.cvut.fit.niadp.mvcgame.state.SingleShootingMode;
 import javafx.scene.image.Image;
 
 import java.util.List;

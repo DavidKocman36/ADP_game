@@ -1,6 +1,7 @@
 package cz.cvut.fit.niadp;
 
 import cz.cvut.fit.niadp.design.GameDesign;
+import cz.cvut.fit.niadp.design.LevelSelectDesign;
 import cz.cvut.fit.niadp.design.MainMenuDesign;
 import cz.cvut.fit.niadp.mvcgame.bridge.GameGraphics;
 import cz.cvut.fit.niadp.mvcgame.bridge.IGameGraphics;
@@ -42,7 +43,10 @@ public class MvcGameJavaFxLauncher extends Application {
         Group root = new Group();
         Scene gameScene = GameDesign.createGameView(root, pressedKeysCodes, theMvcGame);
 
-        Scene mainMenuScene = MainMenuDesign.createMainMenu(stage, gameScene, winWidth, winHeight);
+        Scene levelSelectScene = LevelSelectDesign.createLevelSelection(winWidth, winHeight, theMvcGame, gameScene,stage);
+
+        Scene mainMenuScene = MainMenuDesign.createMainMenu(stage, levelSelectScene, winWidth, winHeight);
+        LevelSelectDesign.setMainMenuScene(mainMenuScene);
         stage.setScene( mainMenuScene );
 
         Pane holder = new Pane();
@@ -65,7 +69,6 @@ public class MvcGameJavaFxLauncher extends Application {
 
         theMvcGame.setGraphicsContext(gameGraphics);
         theMvcGame.setInfoGraphicsContext(infoGraphics);
-
 
         // the game-loop
         new AnimationTimer() {

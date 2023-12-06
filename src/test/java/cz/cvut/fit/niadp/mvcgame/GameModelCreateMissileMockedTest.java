@@ -4,13 +4,9 @@ import cz.cvut.fit.niadp.mvcgame.abstractfactory.GameObjectFactory;
 import cz.cvut.fit.niadp.mvcgame.abstractfactory.IGameObjectFactory;
 import cz.cvut.fit.niadp.mvcgame.model.GameModel;
 import cz.cvut.fit.niadp.mvcgame.model.Position;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsMissile;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.CannonA;
-import cz.cvut.fit.niadp.mvcgame.strategy.IMovingStrategy;
-import cz.cvut.fit.niadp.mvcgame.strategy.SimpleMovingStrategy;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsMissile;
 
 import cz.cvut.fit.niadp.mvcgame.visitor.sounds.Sounds;
-import javafx.application.Platform;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

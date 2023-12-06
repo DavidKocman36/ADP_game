@@ -1,4 +1,4 @@
-package cz.cvut.fit.niadp.mvcgame.model.gameobjects;
+package cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses;
 
 import cz.cvut.fit.niadp.mvcgame.model.Position;
 import java.time.LocalDateTime;

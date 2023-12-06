@@ -1,10 +1,10 @@
 package cz.cvut.fit.niadp.mvcgame.model;
 
 import cz.cvut.fit.niadp.mvcgame.command.AbstractGameCommand;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsCannon;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsEnemy;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.AbsMissile;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.GameObject;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsCannon;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsEnemy;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsMissile;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.GameObject;
 import cz.cvut.fit.niadp.mvcgame.observer.IObservable;
 import cz.cvut.fit.niadp.mvcgame.strategy.IMovingStrategy;
 import cz.cvut.fit.niadp.mvcgame.visitor.sounds.Sounds;
@@ -61,7 +61,7 @@ public interface IGameModel extends IObservable {
     AbsCannon getCannon();
     int getNumberOfFiredMissiles();
     int getScore();
-
     Queue<AbstractGameCommand> getUnexecutedCommands();
+    void generateLevel(int level);
 }
 

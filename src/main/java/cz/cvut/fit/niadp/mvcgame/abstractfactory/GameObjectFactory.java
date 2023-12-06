@@ -4,8 +4,13 @@ import cz.cvut.fit.niadp.config.MvcGameConfig;
 import cz.cvut.fit.niadp.mvcgame.model.GameModel;
 import cz.cvut.fit.niadp.mvcgame.model.IGameModel;
 import cz.cvut.fit.niadp.mvcgame.model.Position;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.*;
-import cz.cvut.fit.niadp.mvcgame.visitor.objectsrenderer.EnemyPos;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsCannon;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsEnemy;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.AbsObstacle;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.concreteClasses.CannonA;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.concreteClasses.EnemyA;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.concreteClasses.MissileA;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.concreteClasses.ObstacleA;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -20,6 +25,7 @@ public class GameObjectFactory implements IGameObjectFactory {
     private final Image cannonImg;
     private final Image enemy1Img;
     private final Image enemy2Img;
+    private final Image obstacleImg;
 
 
     private GameObjectFactory(IGameModel model) {
@@ -28,6 +34,7 @@ public class GameObjectFactory implements IGameObjectFactory {
         this.cannonImg = MvcGameConfig.CANNON_IMAGE;
         this.enemy1Img = MvcGameConfig.ENEMY1_IMAGE;
         this.enemy2Img = MvcGameConfig.ENEMY2_IMAGE;
+        this.obstacleImg = MvcGameConfig.OBSTACLE_IMAGE;
     }
 
     public static IGameObjectFactory getInstance(GameModel model){
@@ -61,9 +68,7 @@ public class GameObjectFactory implements IGameObjectFactory {
     }
 
     @Override
-    public List<AbsEnemy> createEnemies() {
-        EnemyPos enemyPos = new EnemyPos();
-        int[][] pos = enemyPos.getInitPos();
+    public List<AbsEnemy> createEnemies(int[][] pos) {
         List<AbsEnemy> enemies = new ArrayList<>();
         Image [] arr = {this.enemy1Img, this.enemy2Img};
         Random random = new Random();
@@ -73,5 +78,15 @@ public class GameObjectFactory implements IGameObjectFactory {
             enemies.add(new EnemyA(new Position(p[0], p[1]), arr[select]));
         }
         return enemies;
+    }
+
+    @Override
+    public List<AbsObstacle> createObstacles(int[][] pos) {
+        List<AbsObstacle> obstacles = new ArrayList<>();
+        for (int[] p : pos) {
+            obstacles.add(new ObstacleA(new Position(p[0], p[1]), this.obstacleImg));
+        }
+
+        return obstacles;
     }
 }

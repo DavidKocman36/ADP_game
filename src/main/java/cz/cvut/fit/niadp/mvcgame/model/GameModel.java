@@ -4,13 +4,17 @@ import cz.cvut.fit.niadp.mvcgame.abstractfactory.GameObjectFactory;
 import cz.cvut.fit.niadp.mvcgame.abstractfactory.IGameObjectFactory;
 import cz.cvut.fit.niadp.config.MvcGameConfig;
 import cz.cvut.fit.niadp.mvcgame.command.AbstractGameCommand;
+import cz.cvut.fit.niadp.mvcgame.decorator.GameLevel;
+import cz.cvut.fit.niadp.mvcgame.decorator.IGameLevel;
+import cz.cvut.fit.niadp.mvcgame.decorator.levels.Level1Decorator;
+import cz.cvut.fit.niadp.mvcgame.decorator.levels.Level2Decorator;
+import cz.cvut.fit.niadp.mvcgame.decorator.levels.Level3Decorator;
 import cz.cvut.fit.niadp.mvcgame.iterator.IIterator;
 import cz.cvut.fit.niadp.mvcgame.iterator.repos.MovingStrategyIteratorRepository;
-import cz.cvut.fit.niadp.mvcgame.memento.CareTaker;
-import cz.cvut.fit.niadp.mvcgame.model.gameobjects.*;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.abstractClasses.*;
+import cz.cvut.fit.niadp.mvcgame.model.gameobjects.concreteClasses.EnemyA;
 import cz.cvut.fit.niadp.mvcgame.observer.IObserver;
 import cz.cvut.fit.niadp.mvcgame.observer.aspects.Aspect;
-import cz.cvut.fit.niadp.mvcgame.state.IShootingMode;
 import cz.cvut.fit.niadp.mvcgame.strategy.IMovingStrategy;
 import cz.cvut.fit.niadp.mvcgame.visitor.sounds.Sounds;
 
@@ -36,6 +40,7 @@ public class GameModel implements IGameModel {
     private final Stack<AbstractGameCommand> executedCommands;
     private List<AbsEnemy> enemies;
     private List<AbsEnemy> hitEnemies;
+    private List<AbsObstacle> obstacles;
     private int numberOfFiredMissiles;
     private int score;
 
@@ -46,8 +51,9 @@ public class GameModel implements IGameModel {
         this.sounds = new Sounds();
         this.cannon = gameObjectFactory.createCannon();
         this.missiles = new ArrayList<>();
-        this.enemies = gameObjectFactory.createEnemies();
+        this.enemies = new ArrayList<>();
         this.hitEnemies = new ArrayList<>();
+        this.obstacles = new ArrayList<>();
         this.gameInfo = new GameInfo(this);
         this.numberOfFiredMissiles = 0;
         this.score = 0;
@@ -88,6 +94,18 @@ public class GameModel implements IGameModel {
                     (int)missile.getWidth(),
                     (int)missile.getHeight());
             Rectangle e1Bounds = e1.getBounds();
+
+            for(AbsObstacle obstacle: this.obstacles) {
+                Ellipse2D.Double e2 = new Ellipse2D.Double(obstacle.getPosition().getX(),
+                        obstacle.getPosition().getY(),
+                        (int)obstacle.getWidth(),
+                        (int)obstacle.getHeight());
+                Rectangle e2Bounds = e2.getBounds();
+
+                if(e1Bounds.intersects(e2Bounds)){
+                    this.missiles.remove(missile);
+                }
+            }
 
             for(AbsEnemy enemy : this.enemies){
                 Ellipse2D.Double e2 = new Ellipse2D.Double(enemy.getPosition().getX(),
@@ -304,7 +322,12 @@ public class GameModel implements IGameModel {
         return this.missiles;
     }
     public List<GameObject> getGameObjects() {
-        return Stream.concat(Stream.of(this.cannon), this.missiles.stream()).toList();
+        Stream<GameObject> gameObjectStream = Stream.concat(Stream.of(this.cannon), this.missiles.stream());
+        if(!this.obstacles.isEmpty()){
+            gameObjectStream = Stream.concat(gameObjectStream, this.obstacles.stream());
+        }
+
+        return gameObjectStream.toList();
     }
     public List<AbsEnemy> getEnemies(){
         return this.enemies;
@@ -316,5 +339,28 @@ public class GameModel implements IGameModel {
     public int getScore(){return this.score;}
     public Queue<AbstractGameCommand> getUnexecutedCommands(){
         return this.unexecutedCommands;
+    }
+
+    public void generateLevel(int level) {
+        switch (level){
+            case 1 -> {
+                //generate 1st level with only enemies
+                IGameLevel level1 = new Level1Decorator(new GameLevel(), this.gameObjectFactory);
+                this.enemies = level1.generateEnemies();
+            }
+            case 2 -> {
+                //generate 2nd level with two obstacles
+                IGameLevel level2 = new Level2Decorator(new GameLevel(), this.gameObjectFactory);
+                this.enemies = level2.generateEnemies();
+                this.obstacles = level2.generateObstacles();
+            }
+            case 3 -> {
+                //generate 3rd level with three obstacles and enemies further away
+                IGameLevel level3 = new Level3Decorator(new GameLevel(), this.gameObjectFactory);
+                this.enemies = level3.generateEnemies();
+                this.obstacles = level3.generateObstacles();
+            }
+            default -> {/*nothing*/}
+        }
     }
 }
