@@ -1,5 +1,6 @@
 package cz.cvut.fit.niadp;
 
+import cz.cvut.fit.niadp.config.MvcGameConfig;
 import cz.cvut.fit.niadp.design.GameDesign;
 import cz.cvut.fit.niadp.design.LevelSelectDesign;
 import cz.cvut.fit.niadp.design.MainMenuDesign;
@@ -38,6 +39,7 @@ public class MvcGameJavaFxLauncher extends Application {
         int winHeight = theMvcGame.getWindowHeight();
         ArrayList<String> pressedKeysCodes = new ArrayList<>();
         stage.setTitle( winTitle );
+        stage.getIcons().add(MvcGameConfig.ICON_IMAGE);
 
 
         Group root = new Group();

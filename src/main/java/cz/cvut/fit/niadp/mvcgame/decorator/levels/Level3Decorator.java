@@ -10,13 +10,13 @@ import java.util.List;
 public class Level3Decorator extends GameLevelBaseDecorator{
 
     private final int[][] level3EnemyPositions = {
-            {580, 59}, {560, 79}, {1180, 89},
-            {780, 309}, {580, 339}, {1080, 439},
+            {580, 59}, {760, 79}, {1180, 89},
+            {780, 309}, {680, 339}, {1080, 439},
             {790, 459}
     };
 
     private final int[][] level3ObstaclePositions = {
-            {360, 59}, {760, 89}, {360, 125}
+            {360, 125}, {560, 480}, {620, 320}
     };
 
     public Level3Decorator(IGameLevel source, IGameObjectFactory factory) {

@@ -13,6 +13,7 @@ public class GameInfo implements IVisitable {
     public int cannonPower;
     public int numOfMissiles;
     public int score;
+    public boolean isCheating;
 
     public int numberOfFiredMissiles;
     public String missileStrategy;
@@ -30,6 +31,7 @@ public class GameInfo implements IVisitable {
         this.numberOfFiredMissiles = this.model.getNumberOfFiredMissiles();
         this.missileStrategy = "Realistic";
         this.cannonState = this.model.getCannon().getShootingMode().getName();
+        this.isCheating = false;
     }
 
     public void updateInfo(){
@@ -42,6 +44,7 @@ public class GameInfo implements IVisitable {
         this.numberOfFiredMissiles = this.model.getNumberOfFiredMissiles();
         this.missileStrategy = this.model.getMovingStrategy().getName();
         this.cannonState = this.model.getCannon().getShootingMode().getName();
+        this.isCheating = this.model.getCheats();
     }
 
     @Override

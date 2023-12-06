@@ -18,6 +18,8 @@ import java.util.Queue;
 
 public class GameModelProxy implements IGameModel {
     private IGameModel subject;
+
+
     public GameModelProxy(IGameModel model) {
         this.subject = model;
     }
@@ -25,6 +27,16 @@ public class GameModelProxy implements IGameModel {
     @Override
     public void registerObserver(IObserver observer, Aspect interest) {
         this.subject.registerObserver(observer, interest);
+    }
+
+    @Override
+    public void setCheats(boolean cheating){
+        this.subject.setCheats(cheating);
+    }
+
+    @Override
+    public boolean getCheats() {
+        return this.subject.getCheats();
     }
 
     @Override
@@ -92,7 +104,10 @@ public class GameModelProxy implements IGameModel {
     }
     @Override
     public void toggleMovingStrategy() {
-        this.subject.toggleMovingStrategy();
+        //Can toggle only if cheats are enabled
+        if(this.subject.getCheats()) {
+            this.subject.toggleMovingStrategy();
+        }
     }
     @Override
     public void toggleShootingMode() {

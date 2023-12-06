@@ -16,7 +16,7 @@ public class Level2Decorator extends GameLevelBaseDecorator{
     };
 
     private final int[][] level2ObstaclePositions = {
-            {360, 59}, {360, 125}
+            {360, 125}, {560, 400}
     };
 
     public Level2Decorator(IGameLevel source, IGameObjectFactory factory) {

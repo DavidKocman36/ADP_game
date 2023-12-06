@@ -61,6 +61,8 @@ public interface IGameModel extends IObservable {
     AbsCannon getCannon();
     int getNumberOfFiredMissiles();
     int getScore();
+    void setCheats(boolean cheating);
+    boolean getCheats();
     Queue<AbstractGameCommand> getUnexecutedCommands();
     void generateLevel(int level);
 }

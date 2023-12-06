@@ -41,9 +41,9 @@ public class MvcGameConfig {
     public static final String MOVING_STRATEGY_KEY = "M";
     public static final String SHOOTING_MODE_KEY = "N";
     public static final String UNDO_LAST_COMMAND_KEY = "B";
-    public static final String STEP_BACK_KEY = "Z";
     public static final String ADD_MISSILE = "RIGHT";
     public static final String REMOVE_MISSILE = "LEFT";
+    public static final String SET_CHEATS = "H";
 
     public static final String CANNON_IMAGE_RESOURCE = "images/cannon.png";
     public static final String MISSILE_IMAGE_RESOURCE = "images/missile.png";
@@ -52,6 +52,7 @@ public class MvcGameConfig {
     public static final String HIT_ENEMY_IMAGE_RESOURCE = "images/collision.png";
     public static final String BLOODY_ENEMY_IMAGE_RESOURCE = "images/enemy2WithBlood.png";
     public static final String OBSTACLE_IMAGE_RESOURCE = "images/bound.png";
+    public static final String ICON_RESOURCE = "icons/fit-icon.png";
 
     public static final Image CANNON_IMAGE = new Image(CANNON_IMAGE_RESOURCE);
     public static final Image MISSILE_IMAGE = new Image(MISSILE_IMAGE_RESOURCE);
@@ -60,6 +61,7 @@ public class MvcGameConfig {
     public static final Image HIT_ENEMY_IMAGE = new Image(HIT_ENEMY_IMAGE_RESOURCE);
     public static final Image BLOODY_ENEMY_IMAGE = new Image(BLOODY_ENEMY_IMAGE_RESOURCE);
     public static final Image OBSTACLE_IMAGE = new Image(OBSTACLE_IMAGE_RESOURCE);
+    public static final Image ICON_IMAGE = new Image(ICON_RESOURCE);
 
     public static final String BOOM_SOUND_RESOURCE = "/sounds/boom.mp3";
     public static final String MISSILE_SOUND_RESOURCE = "/sounds/missile.mp3";

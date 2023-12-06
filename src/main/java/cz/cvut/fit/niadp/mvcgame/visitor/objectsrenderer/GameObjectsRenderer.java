@@ -54,6 +54,8 @@ public class GameObjectsRenderer implements IGameObjectsVisitor {
         this.gameGraphics.drawText("No. of missiles: " + gameInfo.numOfMissiles, new Position(10, 160), 12);
         this.gameGraphics.drawText("Shooting mode: " + gameInfo.cannonState, new Position(10, 175), 12);
         this.gameGraphics.drawText("Strategy: " + gameInfo.missileStrategy, new Position(10, 190), 12);
+
+        this.gameGraphics.drawText("Cheats: " + gameInfo.isCheating, new Position(10, 210), 12);
     }
 
     @Override

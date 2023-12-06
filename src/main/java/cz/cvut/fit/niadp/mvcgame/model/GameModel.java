@@ -43,6 +43,7 @@ public class GameModel implements IGameModel {
     private List<AbsObstacle> obstacles;
     private int numberOfFiredMissiles;
     private int score;
+    private boolean isCheatEnabled = false;
 
 
     public GameModel() {
@@ -337,6 +338,15 @@ public class GameModel implements IGameModel {
     }
     public AbsCannon getCannon(){return this.cannon;}
     public int getScore(){return this.score;}
+
+
+    public void setCheats(boolean cheating) {
+        this.isCheatEnabled = cheating;
+        this.notifyObservers(Aspect.UpdateInfoAspect);
+    }
+    public boolean getCheats() {
+        return this.isCheatEnabled;
+    }
     public Queue<AbstractGameCommand> getUnexecutedCommands(){
         return this.unexecutedCommands;
     }

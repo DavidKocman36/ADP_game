@@ -5,6 +5,7 @@ import cz.cvut.fit.niadp.mvcgame.command.*;
 import cz.cvut.fit.niadp.mvcgame.memento.CareTaker;
 import cz.cvut.fit.niadp.mvcgame.model.IGameModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameController {
@@ -19,7 +20,8 @@ public class GameController {
     private boolean isPressedShoot = false;
     private boolean isPressedAddMissile = false;
     private boolean isPressedSubMissile = false;
-    private boolean isPressedPrevStep = false;
+    private boolean isPressedSetCheats = false;
+    private boolean cheating = false;
 
     public GameController(IGameModel model) {
         this.model = model;
@@ -37,7 +39,7 @@ public class GameController {
             case MvcGameConfig.UNDO_LAST_COMMAND_KEY -> isPressedUndo = false;
             case MvcGameConfig.ADD_MISSILE ->  isPressedAddMissile = false;
             case MvcGameConfig.REMOVE_MISSILE -> isPressedSubMissile = false;
-            case MvcGameConfig.STEP_BACK_KEY -> isPressedPrevStep = false;
+            case MvcGameConfig.SET_CHEATS -> isPressedSetCheats = false;
         }
     }
 
@@ -106,9 +108,11 @@ public class GameController {
                         this.isPressedSubMissile = true;
                     }
                 }
-                case MvcGameConfig.STEP_BACK_KEY->{
-                    if(!this.isPressedPrevStep){
-                        this.isPressedPrevStep = true;
+                case MvcGameConfig.SET_CHEATS->{
+                    if(!this.isPressedSetCheats){
+                        this.model.setCheats(!cheating);
+                        this.cheating = !this.cheating;
+                        this.isPressedSetCheats = true;
                     }
                 }
                 case MvcGameConfig.EXIT_KEY -> System.exit(0);
@@ -116,7 +120,6 @@ public class GameController {
                 }
                 //nothing
             }
-
         }
         this.model.update();
     }
