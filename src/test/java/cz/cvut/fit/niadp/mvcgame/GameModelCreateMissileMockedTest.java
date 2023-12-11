@@ -34,7 +34,7 @@ public class GameModelCreateMissileMockedTest {
         when(gameModelMock.getSounds()).thenReturn(new Sounds());
 
         AbsMissile missile = gameObjectFactory.createMissile(INIT_TEST_ANGLE, INIT_TEST_VELOCITY);
-        Assert.assertEquals(CANNON_TEST_POSITION_X, missile.getPosition().getX());
-        Assert.assertEquals(CANNON_TEST_POSITION_Y, missile.getPosition().getY());
+        Assert.assertEquals(CANNON_TEST_POSITION_X, (int) missile.getPosition().getX());
+        Assert.assertEquals(CANNON_TEST_POSITION_Y, (int) missile.getPosition().getY());
     }
 }

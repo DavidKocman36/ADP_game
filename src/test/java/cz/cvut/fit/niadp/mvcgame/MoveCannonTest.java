@@ -14,8 +14,8 @@ public class MoveCannonTest {
         GameModel gameModel = new GameModel();
         GameController gameController = new GameController(gameModel);
 
-        Assert.assertEquals(gameModel.getCannonPos().getY(), 360);
+        Assert.assertEquals((int)gameModel.getCannonPos().getY(), 360);
         gameController.processPressedKeys(Arrays.asList("UP"));
-        Assert.assertEquals(gameModel.getCannonPos().getY(), 350);
+        Assert.assertEquals((int)gameModel.getCannonPos().getY(), 350);
     }
 }
