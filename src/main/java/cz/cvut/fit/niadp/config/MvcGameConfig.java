@@ -21,11 +21,12 @@ public class MvcGameConfig {
     public static final int CANNON_POS_Y = MAX_Y / 2;
     public static final double ANGLE_STEP = Math.PI / 18;
     public static final int POWER_STEP = 5;
-    public static final int INIT_POWER = 50;
+    public static final int INIT_POWER = 30;
+    public static final int INIT_POWER_Y= 70;
     public static final double INIT_ANGLE = 0.0;
     public static final double GRAVITY = 9.81;
-    public static final int MAX_POWER = 70;
-    public static final int MIN_POWER = 30;
+    public static final int MAX_POWER = 55;
+    public static final int MIN_POWER = 5;
 
     public static final String GAME_TITLE = "The NI-ADP MvcGame";
 

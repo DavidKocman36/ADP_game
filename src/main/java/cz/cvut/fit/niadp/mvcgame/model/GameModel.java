@@ -102,10 +102,20 @@ public class GameModel implements IGameModel {
                         (int)obstacle.getWidth(),
                         (int)obstacle.getHeight());
                 Rectangle e2Bounds = e2.getBounds();
+                Position pos = missile.getPosition();
 
+                /*if(e1Bounds.intersects(e2Bounds)){
+                    if(pos.getX() + missile.getWidth()/2 < e2Bounds.x){
+                        missile.setVelocityX(-0.5*missile.getVelocityX());
+                    }
+                    else {
+                        missile.setVelocityY(-0.75*missile.getVelocityY());
+                    }
+                }*/
                 if(e1Bounds.intersects(e2Bounds)){
                     this.missiles.remove(missile);
                 }
+
             }
 
             for(AbsEnemy enemy : this.enemies){

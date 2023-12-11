@@ -10,7 +10,7 @@ public class SinusMovingStrategy implements IMovingStrategy{
     }
     @Override
     public void updatePosition(AbsMissile missile) {
-        double initVelocity = missile.getVelocity();
+        double initVelocity = missile.getVelocityX();
         double initAngle = missile.getInitAngle();
         long time = missile.getAge() / 100;
 
